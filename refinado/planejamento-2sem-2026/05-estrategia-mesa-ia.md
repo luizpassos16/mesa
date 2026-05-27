@@ -53,7 +53,8 @@ Se os números baterem → **escalar turmas 2 e 3** reinvestindo o caixa (o fron
 ## Aquisição / Instagram
 - **Conta Mesa IA** como ativo do funil pago (credibilidade + retargeting).
 - **Perfil do Luiz (~8,5k)** + Mesa hub puxam a base quente pro aulão gratuito.
-- **Base Tally** (Mesa Aberta·IA, "Dia 21", IA na Prática etc.) = leads quentes pra turma 1 — *puxar a lista exata da Tally antes do lançamento.*
+- **Base quente (Tally, números reais 27/05):** a lista **IA-específica é pequena** (~40–54). Mas o **universo quente total é grande**: Novos Membros **155**, Interesse **71**, Conexão **72**, + presenças de eventos (Zema 69, Paulo Camargo 42, Carapreta 37…) e — o mais quente — **23 que tentaram comprar no dia do evento** e não fecharam.
+  - **Implicação:** a **turma 1 puxa do universo amplo** (e retargeta os 23 + os 27 do "O que você precisa para 2026"), **não só da lista de IA**. Escalar pras turmas 2–3 (até 120) **exige tráfego pago** — o orgânico quente esgota.
 
 ## O que tem que ser verdade (riscos)
 1. **Economia do funil** (CPA ≤ R$ 250, evento→curso ≥ 20%) — a aposta inteira depende disso.
@@ -61,7 +62,7 @@ Se os números baterem → **escalar turmas 2 e 3** reinvestindo o caixa (o fron
 3. **Gestor de tráfego** contratado a tempo do lançamento (fim de junho).
 
 ## Próximos passos (turma 1)
-1. Puxar a lista quente de IA na **Tally** (quantos leads, quão quentes).
+1. ✅ **Base mapeada (27/05)** — ver "Base quente" acima. Ação: **segmentar e priorizar** os 23 "tentaram comprar" + Lista de Espera Board (15) + Novos Membros/Interesse pro convite da turma 1.
 2. Definir a oferta exata do curso (módulos, datas, bônus) e do evento R$ 490.
 3. Definir **gestor de tráfego** + verba inicial de teste (~R$ 20k).
 4. Subir **conta Mesa IA** + criativos do evento.

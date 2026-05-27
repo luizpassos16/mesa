@@ -20,6 +20,7 @@
   - *Board:* Lista de Espera Advisory Board (15), satisfação Board #2/#3.
   - *Eventos/satisfação:* Sexta Fire, jantares, Experience, "O que você precisa para 2026" (27).
 - **Captura estruturada de perfil, dores e intenção.** Ressalva: há respostas-teste/lixo a limpar antes de usar como métrica dura.
+- **Síntese da base quente (27/05):** universo de leads quentes ~**300–500 únicos** (Novos Membros 155, Interesse 71, Conexão 72 + presenças de eventos: Zema 69, Paulo Camargo 42, Carapreta 37…). Segmentos mais quentes p/ lançamento: **23 que tentaram comprar no dia do evento**, **15 na Lista de Espera do Board**, **27 do "O que você precisa para 2026"**. *IA-específico ainda é pequeno (~40–54).* Duplicatas/teste a higienizar (2× "Mesa Aberta·IA — vaga", 2× "Banco de Indicações").
 
 ### Google Drive (documentos e decks)
 - Drive compartilhado da Mesa.
