@@ -1,7 +1,7 @@
 # 02 — Diagnóstico da MESA (onde estamos hoje)
 
 > Síntese de dados de Granola (24 reuniões, 28/abr–27/mai), Tally (~15 formulários-chave) e Drive (8 decks + briefing). Maio/2026.
-> Serve de base factual para a meta/linha de raciocínio (03), o benchmark (04) e a estratégia (05).
+> Serve de base factual para a meta/linha de raciocínio (03) e as estratégias: geral (04), Mesa IA (05) e organização de dados (06).
 
 ## A. Identidade e posicionamento
 
@@ -13,7 +13,11 @@ Narrativa-chave (decks): *"A Mesa não é sobre comida. A hospitalidade é só a
 
 Gancho emocional: a **"solidão estratégica"** do empresário de médio porte — "grande demais para improvisar, pequeno demais para ter um board corporativo completo".
 
+**Diferencial (como o Luiz articula, 27/05):** não é audiência (<10k seguidores somados) nem faturamento — é **acesso + curadoria + confiança**. Prova: trouxe **Zema, Pierre Berenstein (CEO Outback) e Paulo Camargo (ex-CEO McDonald's)** pra sentar com empresários de BH. Camada nova em construção: **ecossistema B2B de fornecedores curados** com accountability dentro da comunidade ("o que mais compram em mim é a confiança").
+
 ## B. Frentes de produto e estado atual
+
+> **Baseline de receita:** 1ª venda em **jul/2025**; **~R$ 400k em menos de 1 ano** (todas as frentes), sem sócio — "pouco frente ao potencial" (Luiz, 27/05).
 
 ### Comunidade / Board (núcleo de receita)
 - **Oferta hoje: SEM oferta vigente.** Última leva vendida a **R$ 14.997/cadeira × 12 cadeiras (≈ R$ 180k)** (confirmado 27/05). Hoje é "praça limpa" para desenhar a próxima oferta.
@@ -87,7 +91,7 @@ Confirma a tese (doc 00):
 
 1. ~~**Oferta vigente do Board**~~ → **RESOLVIDO (27/05):** não há oferta vigente hoje. Última leva = **R$ 14.997 × 12 cadeiras (≈ R$ 180k)**. Os outros valores nos decks (R$ 16.997/19.997, 15 cadeiras) são versões antigas/aspiracionais — a referência real é a última venda.
 2. **Preço do Board nas reuniões** apareceu como R$ 15.000 e R$ 20.000/semestre — alinhar com os decks.
-3. **G4 como benchmark:** aparece só como prova social (David Ledson) e âncora de preço — não há análise do modelo. Definir o que replicar (ver doc 04).
+3. **G4 — de benchmark a oportunidade real:** Alfredo Soares convidou a Mesa pro projeto **NG4** (10 comunidades do Brasil). Definir o que replicar/integrar depende do modelo do NG4 (ver doc 04, seção G4).
 4. **tl;dv:** acesso a confirmar.
 5. **Higienização do Tally:** remover respostas-teste antes de usar números como meta.
 6. ~~**Ferramenta de captura atual**~~ → **RESOLVIDO (27/05):** o sistema em uso é o app **Lovable `mesaadvisory.lovable.app`** (provável backend Supabase) — não foi descartado. O pensamento bruto do Luiz vive em Notion + chats. Próximo passo: inventariar o banco real e organizar o que está solto.

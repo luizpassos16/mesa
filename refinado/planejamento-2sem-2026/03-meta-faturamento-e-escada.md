@@ -7,7 +7,7 @@
 
 O Luiz quer uma meta **realista e otimista** e acredita ter capacidade de bater **R$ 1M** no semestre. Este doc projeta como.
 
-Baseline de referência: última leva do Board ≈ R$ 180k. R$ 1M no semestre é um salto de ~5x → **ambicioso, e depende de escalar a Mesa IA com tráfego pago** (ver "O que tem que ser verdade").
+Baseline: 1ª venda jul/2025; **~R$ 400k em ~1 ano** (todas as frentes; última leva do Board ≈ R$ 180k). Run-rate ~R$ 200k/semestre → **R$ 1M no semestre é ~5x o atual** → ambicioso, depende de escalar a Mesa IA com tráfego pago (ver "O que tem que ser verdade").
 
 **Realidade do orçamento (27/05):** o empréstimo que o Luiz considera é ~**R$ 40k**. Isso é **capital de ignição/teste, não compra o R$ 1M**. R$ 1M só fecha se o **funil de entrada se autofinanciar** (evento ~R$ 490 paga o tráfego) e o caixa for **reinvestido** ao longo do semestre. Sem isso, o **piso realista ≈ R$ 600k** (Board ~R$ 195k + IA ~50–70 cursos + poucas implementações), e R$ 1M vira o teto/stretch.
 
