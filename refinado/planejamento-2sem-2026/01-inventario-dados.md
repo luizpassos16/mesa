@@ -45,9 +45,11 @@
 ### WhatsApp (visão futura)
 - Agente que varre conversas e extrai informação para o banco. Ainda não implementado.
 
-### Instagram (`@amesa.mg`)
+### Instagram (`@amesa.mg` + perfil do Luiz)
 - Canal de aquisição dominante (puxa leads junto com indicação).
+- Tamanho da base orgânica (27/05): perfil do **Luiz ~8,5k**, **@amesa.mg ~1,5k** — base pequena; escalar volume exige tráfego pago.
 - Não acessível por fetch público (403) — posicionamento extraído dos decks.
+- 7 posts/reels representativos enviados pelo Luiz (27/05) para análise — *pendente: IG bloqueia leitura automática; precisa de legendas/prints ou outra via.*
 
 ## Camada de identidade (chave do sistema)
 

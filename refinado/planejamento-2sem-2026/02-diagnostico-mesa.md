@@ -1,7 +1,7 @@
 # 02 — Diagnóstico da MESA (onde estamos hoje)
 
 > Síntese de dados de Granola (24 reuniões, 28/abr–27/mai), Tally (~15 formulários-chave) e Drive (8 decks + briefing). Maio/2026.
-> Serve de base factual para o benchmark (03) e a estratégia (04).
+> Serve de base factual para a meta/linha de raciocínio (03), o benchmark (04) e a estratégia (05).
 
 ## A. Identidade e posicionamento
 
@@ -19,12 +19,12 @@ Gancho emocional: a **"solidão estratégica"** do empresário de médio porte �
 - **Oferta hoje: SEM oferta vigente.** Última leva vendida a **R$ 14.997/cadeira × 12 cadeiras (≈ R$ 180k)** (confirmado 27/05). Hoje é "praça limpa" para desenhar a próxima oferta.
 - Boards íntimos de **10–12 empresários** (decks institucionais às vezes citam 15 — **inconsistência a resolver**), faturamento até ~R$ 5–10M/ano, sócios/fundadores.
 - Entregas por ciclo: Board Meetings (formato conselho, hot seat, conselheiros convidados), Sessões de Decisão Estratégica (1 empresa por vez), Open Company, diagnóstico individual de entrada, monitorias mensais, canal no WhatsApp.
-- Funil por **curadoria**: "não compre, aplique para uma entrevista" → análise de fit → convite. *"A curadoria é o produto."*
+- Funil por **curadoria**: "não compre, aplique para uma entrevista" → análise de fit → convite. *"A curadoria é o produto."* Pipeline da leva do 2º sem = **os melhores da Mesa IA + da Comunidade** (confirmado 27/05).
 - Prova social forte: Pierre Berenstein (Outback), Gustavo Caetano (SambaTech), Marcelo Marques (Mobly), Romeu Zema, Paulo Camargo (ex-McDonald's), David Ledson (mentor G4), entre outros.
 - **NPS da Turma 1 ≈ 100.**
 
 ### Mesa IA (maior tração de curto prazo)
-- Produto definido com **César + Rodrigo**: aulas semanais + grupo WhatsApp, **R$ 5.000**, **lançamento final de junho/2026**.
+- Produto definido com **César + Rodrigo**: aulas semanais + grupo WhatsApp, **online**, **R$ 5.000**, **lançamento final de junho/2026**. *Online = sem teto geográfico (não é só BH) → produto escalável nacionalmente.*
 - Funil de lançamento: **grupo → aulão → venda**.
 - Eventos de entrada: imersão "DNA" (13/05) → evento prático "mãos no teclado" (20–21/05), ~R$ 490–497.
 - Posicionamento: **desmistificar a "IA mágica"**; foco em automações reais (MCP, Claude + Obsidian, conciliação, agentes, RAG) para PMEs — "oceano azul", analogia com Conta Azul há 10–15 anos.
@@ -32,7 +32,7 @@ Gancho emocional: a **"solidão estratégica"** do empresário de médio porte �
 
 ### Mesa Soluções (em estruturação)
 - Modelo guarda-chuva: a Mesa capta leads, parceiros executam **sob a marca Mesa**.
-- Migrando de **comissão por projeto → mensalidade fixa (R$ 2.000/mês) + reunião mensal**.
+- Migrando de **comissão por projeto → mensalidade fixa (R$ 2.000/mês) + reunião mensal**. *(Valores a confirmar — o Luiz sinalizou que podem estar errados.)*
 - Áreas e parceiros: Eventos (Ana/Wallace), Redução de custos (Igor — projetos R$ 5–15k, % de indicação), Financeiro (Giovanni), Administrativo (Tiago), Restaurantes (Adriana/Hana), Tributário (Vitinho).
 
 ### Mesa Experience (eventos/ambiência)
@@ -66,7 +66,7 @@ Gancho emocional: a **"solidão estratégica"** do empresário de médio porte �
 
 ## F. Aquisição
 
-- **Instagram é o canal de descoberta dominante**, seguido de **indicação de membro**.
+- **Instagram é o canal de descoberta dominante**, seguido de **indicação de membro**. Base orgânica ainda **pequena**: perfil do Luiz ~**8,5k**, @amesa.mg ~**1,5k** (27/05) → escalar volume exige **tráfego pago**.
 - Já existe estrutura de referral embrionária (Banco de Indicações, n=35) — **formalizar referral pode destravar volume**.
 
 ## G. Parcerias mapeadas
@@ -87,7 +87,7 @@ Confirma a tese (doc 00):
 
 1. ~~**Oferta vigente do Board**~~ → **RESOLVIDO (27/05):** não há oferta vigente hoje. Última leva = **R$ 14.997 × 12 cadeiras (≈ R$ 180k)**. Os outros valores nos decks (R$ 16.997/19.997, 15 cadeiras) são versões antigas/aspiracionais — a referência real é a última venda.
 2. **Preço do Board nas reuniões** apareceu como R$ 15.000 e R$ 20.000/semestre — alinhar com os decks.
-3. **G4 como benchmark:** aparece só como prova social (David Ledson) e âncora de preço — não há análise do modelo. Definir o que replicar (ver doc 03).
+3. **G4 como benchmark:** aparece só como prova social (David Ledson) e âncora de preço — não há análise do modelo. Definir o que replicar (ver doc 04).
 4. **tl;dv:** acesso a confirmar.
 5. **Higienização do Tally:** remover respostas-teste antes de usar números como meta.
 6. ~~**Ferramenta de captura atual**~~ → **RESOLVIDO (27/05):** o sistema em uso é o app **Lovable `mesaadvisory.lovable.app`** (provável backend Supabase) — não foi descartado. O pensamento bruto do Luiz vive em Notion + chats. Próximo passo: inventariar o banco real e organizar o que está solto.
