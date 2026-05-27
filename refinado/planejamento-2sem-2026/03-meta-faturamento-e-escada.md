@@ -9,6 +9,8 @@ O Luiz quer uma meta **realista e otimista** e acredita ter capacidade de bater 
 
 Baseline de referência: última leva do Board ≈ R$ 180k. R$ 1M no semestre é um salto de ~5x → **ambicioso, e depende de escalar a Mesa IA com tráfego pago** (ver "O que tem que ser verdade").
 
+**Realidade do orçamento (27/05):** o empréstimo que o Luiz considera é ~**R$ 40k**. Isso é **capital de ignição/teste, não compra o R$ 1M**. R$ 1M só fecha se o **funil de entrada se autofinanciar** (evento ~R$ 490 paga o tráfego) e o caixa for **reinvestido** ao longo do semestre. Sem isso, o **piso realista ≈ R$ 600k** (Board ~R$ 195k + IA ~50–70 cursos + poucas implementações), e R$ 1M vira o teto/stretch.
+
 ## O motor: escada integrada
 
 - **Mesa IA = porta de entrada.** Ticket acessível (R$ 5k), **online** (sem teto geográfico — não é só BH), maior tração de curto prazo. Enche o funil e gera caixa agora.
@@ -31,7 +33,7 @@ Baseline de referência: última leva do Board ≈ R$ 180k. R$ 1M no semestre é
 ## O que tem que ser verdade
 
 1. **Tráfego pago é obrigatório.** Audiência orgânica é pequena (Insta Luiz ~8,5k, @amesa.mg ~1,5k) — não entrega esse volume sozinha.
-2. **Empréstimo como combustível.** O Luiz está aberto a **financiar a expansão via empréstimo** → caixa que banca tráfego + time. Ataca as travas "falta time / você é o gargalo".
+2. **Empréstimo (~R$ 40k) = ignição, não a fonte do R$ 1M.** Banca o teste do funil + primeiras turmas. O R$ 1M depende do funil **se pagar** (front-end ~R$ 490 cobre os ads) e do **reinvestimento** do caixa. Validar **CPA-evento** e **conversão evento→curso** na turma 1 antes de escalar.
 3. **Funil/escada da IA bem desenhado** (evento → curso → implementação) — próximo entregável.
 4. **Board roda 1 leva** (confirmado) e converte os melhores da IA + comunidade.
 
@@ -39,6 +41,24 @@ Baseline de referência: última leva do Board ≈ R$ 180k. R$ 1M no semestre é
 
 - **Curto prazo:** base quente (ex-membros do Board, Lista de Espera, Banco de Indicações — via Tally) + **tráfego pago** pra Mesa IA.
 - **Médio prazo:** Instagram/conteúdo escalando o topo de funil.
+
+## Instagram / perfis — decisão com Tamara (27/05)
+
+Reunião "Estratégia de produtos e conteúdo da Mesa com Tamara" (hoje, 14:03).
+
+**Decidido:** perfis **separados por frente**, sempre **ancorados na marca Mesa** (parceiro = especialista, não protagonista):
+- **Mesa IA** (César + Rodrigo + Luiz) — produto de aulas + lançamento grupo→aulão→venda.
+- **Mesa Board** (Léo, ex-Gutz — assume como cara de autoridade; já tem IG, quer unir forças).
+- **Mesa Comunidade** (eventos com palestrantes externos — **sem dono ainda**).
+- **Mesa Soluções** (Luiz como hub — narrativa mais difícil; Tamara quer construir antes).
+- *Perfil pessoal do Luiz: não tratado como frente separada — âncora é a marca Mesa.*
+
+**Caveats da Tamara:** (1) **narrativa/linha editorial antes de executar**; (2) ancorar na **marca Mesa**. Próximo: Tamara estrutura proposta de valor das contas + reunião semana que vem; antes, diagnóstico do IG do Filipe Galdense pro evento de segunda.
+
+**Recomendação (faseamento):** a direção é certa, mas **não abrir as 4 contas de uma vez** — com ~R$ 40k, audiência pequena e Luiz como gargalo, **concentrar**:
+1. **Priorizar a Mesa IA agora** — é o motor do R$ 1M e o destino do tráfego pago.
+2. **Manter o perfil do Luiz (~8,5k, maior ativo) + Mesa hub (~1,5k)** rodando — não abandonar a audiência existente.
+3. **Adiar Board / Comunidade / Soluções** até terem dono + narrativa (como a Tamara pediu) + caixa. Board pega carona no Léo.
 
 ## Travas (todas reais) — sequência de ataque
 
