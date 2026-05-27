@@ -30,8 +30,8 @@
 ### Notion
 - Base de dados atual consultada pelo formulário inteligente (origem dos dados hoje).
 
-### Lovable
-- Onde o formulário inteligente foi construído. **Em migração para infra própria** (API + banco próprios, domínio HostGator) para reduzir custo e ter controle de dados.
+### Lovable (experimento descartado)
+- Usado para prototipar o formulário inteligente, mas **não vingou** — hoje quase não é usado. A direção é **infra própria** (banco/API próprios) para controle de dados. *Ferramenta de captura atual a confirmar.*
 
 ## Fontes a integrar / validar
 

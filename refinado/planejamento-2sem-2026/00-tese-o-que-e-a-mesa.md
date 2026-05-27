@@ -42,7 +42,7 @@ Cada produto novo = **mais um sensor**. Quanto mais produtos e pontos de contato
 ## Evidência: a MESA já está construindo isso
 
 As reuniões e decks de maio confirmam que a infraestrutura do sistema já está em marcha:
-- **Formulário inteligente** (4 páginas, gera relatório/PDF "espelho", lê dados do Notion) — decisão de **migrar do Lovable para infraestrutura própria** (API + banco próprios) justamente para ter **controle dos dados**.
+- **Formulário inteligente** (4 páginas, gera relatório/PDF "espelho", lê dados do Notion) foi prototipado no **Lovable** — que **não vingou e hoje quase não é usado**. A direção segue válida: **infraestrutura própria** (banco/API próprios) para ter **controle dos dados**. *(Ferramenta de captura usada hoje: a confirmar com o Luiz.)*
 - **Sistema multiusuário** com perfil admin x membro de acesso limitado, e área de upload de material bruto — exatamente o "modelo raiz com permissões".
 - **Três pilares** da metodologia: **Clareza** (formulários progressivos + IA), **Confiança** (ambiente seguro) e **Decisão** — o pilar Clareza *é* o motor de captura de dados.
 

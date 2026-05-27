@@ -77,7 +77,7 @@ Gancho emocional: a **"solidão estratégica"** do empresário de médio porte �
 ## H. O sistema de dados em construção
 
 Confirma a tese (doc 00):
-- Formulário inteligente migrando do **Lovable → infra própria** para controle de dados.
+- Formulário inteligente foi prototipado no **Lovable** (não vingou; hoje quase sem uso); direção é **infra própria** para controle de dados — *ferramenta de captura atual a confirmar*.
 - Sistema **multiusuário** com permissões (admin x membro) e upload de material bruto.
 - Pilar **Clareza** = formulários progressivos + IA = motor de captura.
 - **Gargalo:** os dados ainda vivem em silos (Granola, Tally, Drive, Notion); a "pasta por pessoa" unificada (CPF/WhatsApp/e-mail) ainda não existe.
@@ -89,3 +89,4 @@ Confirma a tese (doc 00):
 3. **G4 como benchmark:** aparece só como prova social (David Ledson) e âncora de preço — não há análise do modelo. Definir o que replicar (ver doc 03).
 4. **tl;dv:** acesso a confirmar.
 5. **Higienização do Tally:** remover respostas-teste antes de usar números como meta.
+6. **Ferramenta de captura atual:** Lovable foi descartado. O que é usado hoje para capturar/estruturar os dados (Tally + Notion na mão? outra coisa?) — definir antes de desenhar a infra própria.
