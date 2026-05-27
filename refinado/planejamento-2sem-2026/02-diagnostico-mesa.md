@@ -16,6 +16,7 @@ Gancho emocional: a **"solidão estratégica"** do empresário de médio porte �
 ## B. Frentes de produto e estado atual
 
 ### Comunidade / Board (núcleo de receita)
+- **Oferta hoje: SEM oferta vigente.** Última leva vendida a **R$ 14.997/cadeira × 12 cadeiras (≈ R$ 180k)** (confirmado 27/05). Hoje é "praça limpa" para desenhar a próxima oferta.
 - Boards íntimos de **10–12 empresários** (decks institucionais às vezes citam 15 — **inconsistência a resolver**), faturamento até ~R$ 5–10M/ano, sócios/fundadores.
 - Entregas por ciclo: Board Meetings (formato conselho, hot seat, conselheiros convidados), Sessões de Decisão Estratégica (1 empresa por vez), Open Company, diagnóstico individual de entrada, monitorias mensais, canal no WhatsApp.
 - Funil por **curadoria**: "não compre, aplique para uma entrevista" → análise de fit → convite. *"A curadoria é o produto."*
@@ -77,16 +78,16 @@ Gancho emocional: a **"solidão estratégica"** do empresário de médio porte �
 ## H. O sistema de dados em construção
 
 Confirma a tese (doc 00):
-- Formulário inteligente foi prototipado no **Lovable** (não vingou; hoje quase sem uso); direção é **infra própria** para controle de dados — *ferramenta de captura atual a confirmar*.
+- Sistema atual roda no **Lovable** (`mesaadvisory.lovable.app`, provável backend Supabase) — **em uso hoje**, não descartado; direção de longo prazo é **infra própria / controle total dos dados**.
 - Sistema **multiusuário** com permissões (admin x membro) e upload de material bruto.
 - Pilar **Clareza** = formulários progressivos + IA = motor de captura.
 - **Gargalo:** os dados ainda vivem em silos (Granola, Tally, Drive, Notion); a "pasta por pessoa" unificada (CPF/WhatsApp/e-mail) ainda não existe.
 
 ## I. Pontos a confirmar antes de fechar o plano
 
-1. **Oferta vigente do Board:** decks divergem — R$ 14.997 / R$ 19.997 / R$ 16.997 à vista; valor agregado R$ 45.000 vs R$ 78.795; **12 vs 15 cadeiras**. Qual é a oferta atual?
+1. ~~**Oferta vigente do Board**~~ → **RESOLVIDO (27/05):** não há oferta vigente hoje. Última leva = **R$ 14.997 × 12 cadeiras (≈ R$ 180k)**. Os outros valores nos decks (R$ 16.997/19.997, 15 cadeiras) são versões antigas/aspiracionais — a referência real é a última venda.
 2. **Preço do Board nas reuniões** apareceu como R$ 15.000 e R$ 20.000/semestre — alinhar com os decks.
 3. **G4 como benchmark:** aparece só como prova social (David Ledson) e âncora de preço — não há análise do modelo. Definir o que replicar (ver doc 03).
 4. **tl;dv:** acesso a confirmar.
 5. **Higienização do Tally:** remover respostas-teste antes de usar números como meta.
-6. **Ferramenta de captura atual:** Lovable foi descartado. O que é usado hoje para capturar/estruturar os dados (Tally + Notion na mão? outra coisa?) — definir antes de desenhar a infra própria.
+6. ~~**Ferramenta de captura atual**~~ → **RESOLVIDO (27/05):** o sistema em uso é o app **Lovable `mesaadvisory.lovable.app`** (provável backend Supabase) — não foi descartado. O pensamento bruto do Luiz vive em Notion + chats. Próximo passo: inventariar o banco real e organizar o que está solto.

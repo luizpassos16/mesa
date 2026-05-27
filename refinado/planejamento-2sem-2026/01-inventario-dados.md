@@ -27,11 +27,15 @@
 - Briefings: `briefing_setor_restaurantes_bh_hanna_maio2026.pdf` (vertical Soluções/restaurantes).
 - **Repositório do posicionamento, ofertas e preços.**
 
-### Notion
-- Base de dados atual consultada pelo formulário inteligente (origem dos dados hoje).
+### Lovable — app `mesaadvisory.lovable.app` (sistema EM USO hoje — confirmado 27/05)
+- **Correção:** o Lovable **não** foi descartado. O sistema que o Luiz usa hoje para o operacional da Mesa é o app **https://mesaadvisory.lovable.app/** (acesso via Gmail `lgcmp44@gmail.com`).
+- Provável backend em **Supabase** (padrão Lovable) — a inventariar direto no banco.
+- A direção de longo prazo segue sendo **infra própria / controle total dos dados**, mas o ponto de partida real é este app, não um campo em branco.
 
-### Lovable (experimento descartado)
-- Usado para prototipar o formulário inteligente, mas **não vingou** — hoje quase não é usado. A direção é **infra própria** (banco/API próprios) para controle de dados. *Ferramenta de captura atual a confirmar.*
+### Notion + memória de chats (pensamento bruto do Luiz)
+- Onde o **pensamento e as decisões** do Luiz ficam soltos: **Notion + memória dos chats da Claude.**
+- Muito material já gerado, ainda **não organizado/consolidado** — organizar isso é dor explícita.
+- *Distinção:* Lovable = sistema de dados da Mesa (membros/operacional); Notion + chats = matéria-prima de raciocínio a consolidar.
 
 ## Fontes a integrar / validar
 
