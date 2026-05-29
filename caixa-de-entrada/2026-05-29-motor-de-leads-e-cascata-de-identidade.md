@@ -70,6 +70,48 @@ Camada de pessoas/CRM nova, com RLS ligado (fechada pra API pública):
   `member_insights`; embeddings (`member_embeddings`, pgvector já instalado) pra busca
   semântica na ficha.
 
+## Fase 2 — 2ª fonte Tally + enriquecimento cross-fonte (✔ executado)
+**Fonte:** Tally "A MESA | CONEXÃO ENTRE OS MEMBROS" (`mDyqRZ`), 72 respostas.
+Escolhida por ter **CPF** (chave forte de verdade) + dados de negócio (faturamento,
+segmento) + campos qualitativos ricos (trajetória, desafio, o que busca).
+
+**O que mudou no motor:**
+- **CPF entrou na cascata** como 2ª chave mais forte: email → **cpf** → telefone →
+  instagram → nome. `norm_cpf()` exige 11 dígitos e rejeita sequência repetida.
+- Nova tabela **`person_insights`** (RLS ligado) — guarda o qualitativo por pessoa:
+  `about`, `challenge`, `trajectory`, `goal`, `lifestyle`. É o "ouro pra IA".
+- Novo campo `people.monthly_revenue_range`.
+- `resolve_person()` agora **enriquece** ficha existente (só preenche campo vazio).
+
+**Resultado:** 155 + 72 = **227 submissões → 202 pessoas**. 32 CPFs, 320 insights,
+67 com faixa de faturamento. **15 pessoas apareceram nas DUAS fontes** e foram
+reconciliadas (não duplicadas) — ex.: Pedro Grenfell ganhou CPF + 2º email + nome
+completo, ficando com 7 chaves. **Prova do enriquecimento cross-fonte.**
+
+**Aprendizado-chave (do Luiz):** "não preciso só de chaves, preciso de DADO por pessoa."
+As chaves são o esqueleto (não duplicar); o valor está nos atributos + qualitativo.
+A ficha agora tem identificação + dados de negócio + 5 insights + pontos de contato.
+
+**3 bugs de qualidade pegos e corrigidos:**
+1. Texto qualitativo estava sendo normalizado (minúscula/sem acento) — agora guarda
+   **original** (`norm_text` só nas chaves, nunca no texto livre/display).
+2. Empresa/cargo/nome perdiam maiúsculas — corrigido (case preservado).
+3. Faturamento vinha como array cru `["R$..."]` — agora limpo.
+   Limpeza feita direto do `raw_payload` já gravado (sem rebuscar no Tally).
+
+## Aprendizados / próximos passos (atualizados)
+- **Telefone compartilhado** ainda funde casal/sócios silenciosamente — CPF resolve a
+  maioria dos casos novos, mas falta a regra "nomes muito diferentes → revisar".
+- **Qualitativo do form 1** (`wbvQx1`) ainda não foi extraído — está no `raw_payload`,
+  dá pra rodar o mesmo padrão de limpeza.
+- **Escala:** o padrão (mapeamento de questionId → ingestor idempotente) já serve pras
+  outras ~40 fontes do Tally. Próximo passo natural: confirmações de evento (muito
+  volume) pra cruzar presença com perfil.
+- **RLS legado:** 57 tabelas antigas seguem abertas (ERROs no advisor) — tarefa separada,
+  recomendo priorizar antes de uso real.
+- **member_embeddings** (pgvector instalado): com o qualitativo populado, dá pra gerar
+  embeddings da ficha pra busca semântica.
+
 ## Observação
 O repositório `mesa` (este, de organização de pensamento) e o produto `MESA` (o Supabase
 do app) são coisas distintas que por acaso têm o mesmo nome.
