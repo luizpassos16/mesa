@@ -115,3 +115,63 @@ A ficha agora tem identificação + dados de negócio + 5 insights + pontos de c
 ## Observação
 O repositório `mesa` (este, de organização de pensamento) e o produto `MESA` (o Supabase
 do app) são coisas distintas que por acaso têm o mesmo nome.
+
+---
+
+# APÊNDICE TÉCNICO (para retomada em sessão nova)
+
+> Tudo abaixo já está APLICADO no Supabase. Serve pra retomar sem reconstruir nada.
+
+## Projeto Supabase
+- Projeto: **MESA**, project_id = `hgwjvfgntfpvgdghngtn`, Postgres 17, pgvector 0.8.
+- Acesso via MCP Supabase (`execute_sql`, `apply_migration`, `get_advisors`).
+
+## Tabelas da camada CRM (todas com RLS ON, sem política = sem acesso público)
+- **`people`** — ficha unificada. Colunas: `id uuid pk`, `full_name`, `primary_email`,
+  `primary_phone`, `instagram`, `city`, `birthdate`, `company_name`, `segment`, `role`,
+  `monthly_revenue_range`, `profile_id` (FK opcional → profiles), `merge_confidence`
+  (`high`|`low_name_only`), `needs_review bool`, `created_at`, `updated_at`.
+- **`person_identities`** — chaves da cascata. `kind` IN (`email`,`cpf`,`phone`,
+  `instagram`,`name`), `value_norm`, `source`. UNIQUE(`kind`,`value_norm`).
+- **`source_submissions`** — ponto de contato cru. `source`,`source_form_id`,
+  `source_form_name`,`external_id`,`submitted_at`,`raw_payload jsonb`,`processed_at`.
+  UNIQUE(`source`,`external_id`) → idempotência. **raw_payload = array `responses`** do Tally.
+- **`person_insights`** — qualitativo. `kind` IN (`about`,`challenge`,`trajectory`,
+  `goal`,`lifestyle`,`motivation`,`pain`,`intro_phrase`,`wish`), `text_content`,
+  `source` (ex.: `tally:mDyqRZ`). UNIQUE(`person_id`,`source`,`kind`).
+  ⚠️ NÃO confundir com a tabela legada `member_insights` (do app, schema diferente).
+
+## Funções (todas com search_path = public, pg_catalog)
+- `norm_text(t)` — lower + sem acento + colapsa espaço. **SÓ pra chaves, nunca display.**
+- `norm_short(t)` — trim, null se < 2 chars.
+- `norm_email / norm_phone(→E.164) / norm_instagram(sem @) / norm_cpf(11 díg, rejeita repetido)`.
+- `_tally_ans(p_resp jsonb, p_qid text)` — extrai `answer` por questionId. Recebe o
+  array `responses` (NÃO o payload inteiro).
+- `resolve_person(p_full_name, p_email, p_cpf, p_phone, p_instagram, p_city,
+  p_birthdate, p_company, p_segment, p_role, p_monthly_revenue)` — cascata
+  email→cpf→phone→instagram→name; cria ou **enriquece (só campo vazio)**; match por
+  nome marca `needs_review`. **USAR PARÂMETROS NOMEADOS** (assinatura mudou na fase 2).
+- `ingest_tally_newmembers(p_form_id, p_form_name, p_rows jsonb)` — ingestor form 1.
+- `ingest_tally_conexao(p_form_id, p_form_name, p_rows jsonb)` — ingestor form 2.
+  `p_rows` = array de `{id, submittedAt, responses:[{questionId,answer}]}`.
+
+## Mapeamento de questionId → destino
+**Form 1 `wbvQx1` "FORMULARIO PARA NOVOS MEMBROS"** (155 resp): nome `E5jxJ4`,
+email `BdJkbQ`, whatsapp `2BqKxj`, instagram `vr7yrv`, cidade `ke86RR`, empresa `GKNdeZ`,
+segmento `Olp5QR`, cargo `VjR5pg`. (qualitativos ainda não extraídos: motivação `PDM5RV`,
+dificuldade `E5jQq4`, frase `ve8yx0`, valer a pena `K5rlB8`.)
+
+**Form 2 `mDyqRZ` "CONEXÃO ENTRE OS MEMBROS"** (72 resp): nome `ZELpdz`, email `VQXE6N`,
+whatsapp `qD72bY`, instagram/linkedin `7Lg8dP` (skip se "linkedin"), CPF `P1LjqP`,
+nascimento `O4K1Nk`, empresa `EdezOA`, cargo `raRyZp`, faturamento `2az86g`,
+segmento `xMExWE`. Qualitativos: about `G9avPQ`, desafio `G9avPO`, trajetória `oeY6jN`,
+goal `O4K1NM`, lifestyle `WEkvAj`.
+
+## Como reprocessar uma fonte (idempotente)
+`fetch_submissions(formId, limit=50, page=N)` no MCP Tally → passar `data.submissions`
+como `p_rows` pra `ingest_tally_*`. Lote ~10/vez via `$JSON$...$JSON$::jsonb` no execute_sql.
+Re-rodar não duplica. (Resposta grande → processar em subagente pra não estourar contexto.)
+
+## Estado atual (2026-05-29)
+202 pessoas · 227 submissões (155+72) · 32 CPFs · 320 insights · 67 com faturamento ·
+15 cross-fonte · 1 needs_review. Fontes Tally restantes: ~40 (ver lista no Tally MCP).
