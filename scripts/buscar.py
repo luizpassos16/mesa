@@ -55,12 +55,12 @@ def main():
                 print(f"    {label:12} {p[key]}")
 
         ids = api("person_identities", {
-            "person_id": f"eq.{p['id']}", "select": "kind,value", "order": "kind",
+            "person_id": f"eq.{p['id']}", "select": "kind,value_norm", "order": "kind",
         })
         if ids:
             grouped = {}
             for i in ids:
-                grouped.setdefault(i["kind"], []).append(i["value"])
+                grouped.setdefault(i["kind"], []).append(i["value_norm"])
             print("    identidades:")
             for kind, vals in grouped.items():
                 print(f"      {kind:10} {', '.join(vals)}")
