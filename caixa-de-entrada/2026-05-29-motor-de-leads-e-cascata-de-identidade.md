@@ -163,13 +163,21 @@ telefone com typo), Tamara Andrade, Victor Guelman, Wallace França.
    compartilha nenhum token com o existente → não absorve, cria ficha nova needs_review.
 3. Helpers `_merge_person(src,dst)` e `_name_tokens(t)` criados (reutilizáveis).
 
-**Caso ambíguo resolvido pelo Luiz:** Lucas Meireles Duarte SP vs MG era a **mesma
-pessoa** (Trip Food = empresa dele) — fichas fundidas (7 subs, CPF, 2 instagrams).
+**Revisão dos needs_review (cruzamento por tokens de nome + decisão do Luiz):**
+Helper `_token_overlap(a,b)` criado. Dos 41 needs_review, o cruzamento achou os sósias
+por nome (primeiro+sobrenome) e as fichas foram fundidas:
+- Auto-seguras (nome incomum / e-mail confirma nome / sem chave conflitante):
+  Andre O Batista→Andre Oliveira Batista, Darson Ventura→completo, Hanna Castor (ganhou
+  CPF), Izabella Neves, Manir Donato→completo, Rodrigo Cézar Magalhães Rocha,
+  Henrique Almada→Henrique Almada Soares Neves, Vitor Kalil→completo.
+- Confirmadas pelo Luiz como mesma pessoa: **Lucas Meireles Duarte** (SP+MG+automação360,
+  Trip Food = empresa), **Wallace França** (Point Produtora + CPF).
+- Confirmado DIFERENTES: Henrique Almada Soares Neves ≠ Alexandre Almada Soares Neves (parentes).
+Os ~28 needs_review restantes eram leads esparsos (só-nome, sem nenhum sósia) → flag limpa.
 
-**Resultado pós-limpeza: 430 pessoas reais (+1 quarentena de lixo) · 773 submissões ·
-1.636 insights · 0 duplicatas · 0 fusões erradas.** O número subiu vs. 427 porque
-desfazer a fusão "Luiz Passos" revelou ~15 pessoas reais que estavam escondidas — o
-banco está mais correto, não só "mais limpo".
+**Resultado FINAL: 420 pessoas reais (+1 quarentena) · 773 submissões · 1.636 insights ·
+59 CPFs · 0 duplicatas · 0 fusões erradas · 0 needs_review.** Banco totalmente
+reconciliado e auditado.
 
 ## Observação
 O repositório `mesa` (este, de organização de pensamento) e o produto `MESA` (o Supabase
@@ -283,14 +291,14 @@ Para os demais forms, os question IDs estão na definição das funções no Sup
 como `p_rows` pra `ingest_tally_*` via `$JSON$...$JSON$::jsonb` no execute_sql.
 Re-rodar não duplica. Resposta grande → usar subagente pra não estourar contexto.
 
-## Estado atual (2026-05-30, pós fase 4 — auditoria + limpeza)
-**430 pessoas reais (+1 quarentena) · 773 submissões · 1.636 insights · 59 CPFs · 41 needs_review**
+## Estado atual (2026-05-30, pós fase 4 — auditoria + limpeza COMPLETA)
+**420 pessoas reais (+1 quarentena) · 773 submissões · 1.636 insights · 59 CPFs · 0 needs_review**
 41 fontes Tally ingeridas · 2 bloqueadas (3xq8e9, wgE0G1) · 27 ingestores ativos.
 Cascata: email → cpf → phone → instagram → name (match de nome por `norm_text`).
-Motor com guarda anti-telefone-compartilhado. **0 fusões erradas · 0 duplicatas.**
+Motor com guarda anti-telefone-compartilhado. **0 fusões erradas · 0 duplicatas · 0 needs_review.**
+Helpers de manutenção: `_merge_person`, `_name_tokens`, `_token_overlap`.
 
 **Próximos passos reais:**
-- Revisar as 41 needs_review (fantasmas só-nome de formulários de satisfação/evento).
 - Embeddings: pgvector instalado, gerar embeddings das fichas pra busca semântica.
 - RLS legado: 57 tabelas do app MESA sem política (buraco de segurança).
 - Blocked forms: aguardar fix do MCP Tally (label null) para 3xq8e9 + wgE0G1.
