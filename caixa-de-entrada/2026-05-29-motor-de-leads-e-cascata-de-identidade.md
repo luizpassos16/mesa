@@ -136,6 +136,42 @@ A ficha agora tem identificação + dados de negócio + 5 insights + pontos de c
 **Resultado: 427 pessoas · 773 submissões · 1.643 insights**
 +31 pessoas novas das 68 submissões desta fase (maioria reconciliou com existentes via cascata).
 
+## Fase 4 — Auditoria de unicidade + limpeza de fusões (✔ executado 2026-05-30)
+Pergunta do Luiz: "as 427 são únicas ou estamos repetindo?". Auditoria achou os DOIS defeitos:
+
+**🔴 Fusões ERRADAS (pessoas diferentes na mesma ficha) — 5 fichas, corrigidas:**
+- **"Luiz Passos"** (34 subs / 18 nomes) — a ficha tinha as chaves do próprio Luiz, e
+  ~15 pessoas reais + lixo de teste grudaram porque as submissões foram preenchidas com
+  o **telefone/e-mail do Luiz** (confirmações de evento via proxy, ex. Jantar Carapreta
+  ×22). Desmontada: 24 submissões re-resolvidas por nome (**15 religaram a fichas reais
+  existentes**, 9 viraram fichas novas needs_review), 3 testes → quarentena. Luiz ficou
+  com 7 submissões genuínas.
+- **Rita Leão** ÷ Marcelo Leão (telefone do casal compartilhado).
+- **Jessica Martins** ÷ Pedro Felipe Duarte (telefone compartilhado).
+- **Gustavo Cicutti** ÷ Adriana Stivanin.
+- **"teste"** ÷ Rodrigo Casagrande (pessoa real separada; lixo → quarentena).
+
+**🟡 Duplicatas (mesma pessoa em fichas separadas) — 8 fantasmas fundidos:**
+Fichas só-nome (de formulários de satisfação/board sem chave forte) fundidas nas ricas:
+Gabriel Castelo Branco, João Victor, Lucas Meireles (ghost), Manir (2 ghosts, incl.
+telefone com typo), Tamara Andrade, Victor Guelman, Wallace França.
+
+**Causa raiz corrigida no motor (`resolve_person`):**
+1. **Match de nome agora por `norm_text`** (antes a fase 2 usava `norm_short` → case/acento
+   sensível, criava fantasmas tipo "Wallace frança" ≠ "Wallace França").
+2. **Guarda anti-telefone-compartilhado:** se casou SÓ por telefone e o nome novo não
+   compartilha nenhum token com o existente → não absorve, cria ficha nova needs_review.
+3. Helpers `_merge_person(src,dst)` e `_name_tokens(t)` criados (reutilizáveis).
+
+**Pendência deixada p/ decisão humana (1 caso ambíguo):**
+- **Lucas Meireles Duarte** — 2 fichas ricas (SP `lucasmd_` vs MG `tripfoodbh`, telefones
+  diferentes). Pode ser a mesma pessoa com 2 números/contas ou homônimos. NÃO fundido.
+
+**Resultado pós-limpeza: 431 pessoas reais (+1 quarentena de lixo) · 773 submissões ·
+1.636 insights · 41 needs_review.** O número subiu (427→431) porque desfazer a fusão
+"Luiz Passos" revelou ~15 pessoas reais que estavam escondidas — o banco está mais
+correto, não só "mais limpo".
+
 ## Observação
 O repositório `mesa` (este, de organização de pensamento) e o produto `MESA` (o Supabase
 do app) são coisas distintas que por acaso têm o mesmo nome.
@@ -248,12 +284,16 @@ Para os demais forms, os question IDs estão na definição das funções no Sup
 como `p_rows` pra `ingest_tally_*` via `$JSON$...$JSON$::jsonb` no execute_sql.
 Re-rodar não duplica. Resposta grande → usar subagente pra não estourar contexto.
 
-## Estado atual (2026-05-30, pós fase 3 completa)
-**427 pessoas · 773 submissões · 1.643 insights**
+## Estado atual (2026-05-30, pós fase 4 — auditoria + limpeza)
+**431 pessoas reais (+1 quarentena) · 773 submissões · 1.636 insights · 59 CPFs · 41 needs_review**
 41 fontes Tally ingeridas · 2 bloqueadas (3xq8e9, wgE0G1) · 27 ingestores ativos.
-Cascata: email → cpf → phone → instagram → name.
+Cascata: email → cpf → phone → instagram → name (match de nome por `norm_text`).
+Motor com guarda anti-telefone-compartilhado. 0 fusões erradas detectadas; 1 duplicata
+ambígua deixada p/ decisão humana (Lucas Meireles Duarte SP vs MG).
 
 **Próximos passos reais:**
+- Decidir o caso Lucas Meireles Duarte (fundir as 2 fichas ou são homônimos?).
+- Revisar as 41 needs_review (fantasmas só-nome de formulários de satisfação/evento).
 - Embeddings: pgvector instalado, gerar embeddings das fichas pra busca semântica.
 - RLS legado: 57 tabelas do app MESA sem política (buraco de segurança).
 - Blocked forms: aguardar fix do MCP Tally (label null) para 3xq8e9 + wgE0G1.
