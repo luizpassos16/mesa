@@ -330,8 +330,10 @@ limpar a tabela e re-rodar. (Alternativa mais rápida p/ backfill grande: script
 usando a API batch da OpenAI.)
 
 ## Estado atual (2026-05-30, pós fase 7 — Granola)
-**492 pessoas reais (+1 quarentena) · 917 submissões · 1.687 insights ·
-492 embeddings (1536d) · 0 needs_review**
+**482 pessoas reais (+1 quarentena) · 917 submissões · 1.687 insights ·
+482 embeddings (1536d) · 0 needs_review**
+(âncora: 467 reais antes da Granola + 15 novas = 482; ~26 das 41 pessoas da Granola já
+existiam no Tally e foram enriquecidas, não duplicadas.)
 Tally 100% + Granola 100% (15 reuniões, 20/abr→28/mai — toda a janela disponível na conta).
 Busca semântica ativa (`search_people`). Motor de identidade blindado.
 Cascata: email → cpf → phone → instagram → name (match de nome por `norm_text`).
