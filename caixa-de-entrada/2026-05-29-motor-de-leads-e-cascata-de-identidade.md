@@ -163,14 +163,13 @@ telefone com typo), Tamara Andrade, Victor Guelman, Wallace França.
    compartilha nenhum token com o existente → não absorve, cria ficha nova needs_review.
 3. Helpers `_merge_person(src,dst)` e `_name_tokens(t)` criados (reutilizáveis).
 
-**Pendência deixada p/ decisão humana (1 caso ambíguo):**
-- **Lucas Meireles Duarte** — 2 fichas ricas (SP `lucasmd_` vs MG `tripfoodbh`, telefones
-  diferentes). Pode ser a mesma pessoa com 2 números/contas ou homônimos. NÃO fundido.
+**Caso ambíguo resolvido pelo Luiz:** Lucas Meireles Duarte SP vs MG era a **mesma
+pessoa** (Trip Food = empresa dele) — fichas fundidas (7 subs, CPF, 2 instagrams).
 
-**Resultado pós-limpeza: 431 pessoas reais (+1 quarentena de lixo) · 773 submissões ·
-1.636 insights · 41 needs_review.** O número subiu (427→431) porque desfazer a fusão
-"Luiz Passos" revelou ~15 pessoas reais que estavam escondidas — o banco está mais
-correto, não só "mais limpo".
+**Resultado pós-limpeza: 430 pessoas reais (+1 quarentena de lixo) · 773 submissões ·
+1.636 insights · 0 duplicatas · 0 fusões erradas.** O número subiu vs. 427 porque
+desfazer a fusão "Luiz Passos" revelou ~15 pessoas reais que estavam escondidas — o
+banco está mais correto, não só "mais limpo".
 
 ## Observação
 O repositório `mesa` (este, de organização de pensamento) e o produto `MESA` (o Supabase
@@ -285,14 +284,12 @@ como `p_rows` pra `ingest_tally_*` via `$JSON$...$JSON$::jsonb` no execute_sql.
 Re-rodar não duplica. Resposta grande → usar subagente pra não estourar contexto.
 
 ## Estado atual (2026-05-30, pós fase 4 — auditoria + limpeza)
-**431 pessoas reais (+1 quarentena) · 773 submissões · 1.636 insights · 59 CPFs · 41 needs_review**
+**430 pessoas reais (+1 quarentena) · 773 submissões · 1.636 insights · 59 CPFs · 41 needs_review**
 41 fontes Tally ingeridas · 2 bloqueadas (3xq8e9, wgE0G1) · 27 ingestores ativos.
 Cascata: email → cpf → phone → instagram → name (match de nome por `norm_text`).
-Motor com guarda anti-telefone-compartilhado. 0 fusões erradas detectadas; 1 duplicata
-ambígua deixada p/ decisão humana (Lucas Meireles Duarte SP vs MG).
+Motor com guarda anti-telefone-compartilhado. **0 fusões erradas · 0 duplicatas.**
 
 **Próximos passos reais:**
-- Decidir o caso Lucas Meireles Duarte (fundir as 2 fichas ou são homônimos?).
 - Revisar as 41 needs_review (fantasmas só-nome de formulários de satisfação/evento).
 - Embeddings: pgvector instalado, gerar embeddings das fichas pra busca semântica.
 - RLS legado: 57 tabelas do app MESA sem política (buraco de segurança).
