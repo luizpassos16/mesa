@@ -1,0 +1,14 @@
+A Mesa + MVP
+Date: 2026-04-28T15:00:00-03:00
+Duration: 33 min
+
+--- TRANSCRIPT ---
+Luiz: Vou usar esse tempo sozinho pra pensar alto sobre A Mesa e o MVP.
+Luiz: A ideia central é um sistema de três níveis: caixa de entrada, refinado e em execução.
+Luiz: O que tá em execução manda. Sempre. Se a caixa de entrada contradiz o que tá em execução, a caixa de entrada perde.
+Luiz: Isso é importante porque eu mudo de ideia o tempo todo, e o sistema tem que acompanhar o pensamento mais novo, não o mais antigo.
+Luiz: Pro MVP eu não preciso de interface bonita. Preciso de pastas e uma regra clara de prioridade.
+Luiz: Decisão: o MVP é só a hierarquia de três pastas com a regra de que o nível mais alto vence. Nada de features extras agora.
+Luiz: Se mais tarde eu sentir falta de busca, eu adiciono. Mas não faz parte do MVP.
+Luiz: É isso. Hierarquia clara, em execução como fonte da verdade, e o resto é matéria-prima.
+--- END TRANSCRIPT ---
