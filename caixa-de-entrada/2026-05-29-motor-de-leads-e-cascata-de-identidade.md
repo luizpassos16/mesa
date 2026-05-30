@@ -348,8 +348,14 @@ Helpers: `_merge_person`, `_name_tokens`, `_token_overlap`, `person_document`, `
    Vitinho, Maiara por nome (match fraco → **needs_review**, são esses os 5 atuais).
    Novo ingestor `ingest_granola_byname(meeting_id,title,date,summary,names[])`.
 
-**needs_review (5 atuais):** Alfredo, Tamara, Lígia Oliveira, Vitinho, Maiara — fichas
-só-nome de reuniões sem e-mail. Aguardam e-mail/identidade do Luiz para confirmar.
+**Identidades dos só-nome resolvidas pelo Luiz (2026-05-30):**
+- **Alfredo** → a reunião foi com **Giovanni Naddeo** (Alfredo só citado) → ficha fundida no Giovanni.
+- **Vitinho** → é **Victor Gontijo** (victorfgontijo@gmail.com) → ficha fundida no Victor.
+- **Tamara** → **Tamara Andrade** (equipe Mesa).
+- **Maiara** → **Fortini** (Fortini Social, projeto social).
+- **Lígia Oliveira** → foi uma **call de vendas** (ela vendendo método PMM ao Luiz; fornecedora).
+- **Hanna** (metodologia 360) = **Hanna Castor / Hacoo**. **César** = Multiverso. **Rodrigo** = Vértice.
+needs_review zerado após essas correções.
 
 **needs_review resolvidos antes (2026-05-30):** 7 da Granola confirmados (Wallace, Victor
 Guelman, Thiago Oliveira, Henrique Almada, Blaen, Paula, Lenice). 4 do Tally resolvidos:
