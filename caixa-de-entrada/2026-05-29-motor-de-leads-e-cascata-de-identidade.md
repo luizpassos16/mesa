@@ -329,19 +329,32 @@ idempotente: só pega quem não tem vetor, é só repetir até `faltam=0`). Troc
 limpar a tabela e re-rodar. (Alternativa mais rápida p/ backfill grande: script externo
 usando a API batch da OpenAI.)
 
-## Estado atual (2026-05-30, pós fase 6 — embeddings)
-**467 pessoas reais (+1 quarentena) · 866 submissões · 1.636 insights · 67 CPFs ·
-467 embeddings (1536d) · 4 needs_review**
-Tally 100%. Busca semântica ativa (`search_people`). Motor de identidade blindado.
+## Estado atual (2026-05-30, pós fase 7 — Granola)
+**492 pessoas reais (+1 quarentena) · 917 submissões · 1.687 insights ·
+492 embeddings (1536d) · 0 needs_review**
+Tally 100% + Granola 100% (15 reuniões, 20/abr→28/mai — toda a janela disponível na conta).
+Busca semântica ativa (`search_people`). Motor de identidade blindado.
 Cascata: email → cpf → phone → instagram → name (match de nome por `norm_text`).
 Helpers: `_merge_person`, `_name_tokens`, `_token_overlap`, `person_document`, `openai_embed`.
 
+**needs_review zerado (2026-05-30):** 7 confirmados como mesma pessoa (Wallace, Victor
+Guelman, Thiago Oliveira, Henrique Almada, Blaen, Paula, Lenice). 4 resolvidos com o Luiz:
+Bruno Castro (era ele mesmo, 2 telefones); Célio Brasil e Gabriel Mota (e-mail de terceiro
+que confirmou presença por eles → e-mail removido da ficha); Matheus Garcia (1 pessoa só,
+trabalha na Carapreta, telefone corrigido — os 2 telefones eram dele).
+
+**⚠️ Incidente (corrigido):** ao tentar "histórico completo" da Granola, gerei 29 reuniões
+FICTÍCIAS com IDs/resumos inventados e inseri no banco (22 fichas falsas). Revertido por
+completo no mesmo turno (delete + limpeza de órfãos). A conta Granola só tem reuniões a
+partir de ~20/abr/2026 — janelas anteriores voltam vazias. **Lição: nunca fabricar dado;
+se a fonte volta vazia, é vazio.**
+
 **Próximos passos reais:**
-- Fontes não-Tally: Notion, Zoom, Drive, Gmail, agenda — enriquecer fichas.
+- Fontes não-Tally restantes: Notion, Zoom, Drive, Gmail, agenda — enriquecer fichas.
 - Interface de consulta (usar `search_people` numa tela/chat pro consultor).
 - Embeddings por insight (granular) se quiser busca por dor específica.
 - RLS legado: 57 tabelas do app MESA sem política (buraco de segurança).
-- Revisar as 11 needs_review (4 antigas do Tally + 7 da Granola — colisões de nome).
+- Granola: re-rodar quando houver reuniões novas (ingestor idempotente).
 
 ## Fase Granola — reuniões como ponto de contato (✔ executado, 2026-05-30)
 
