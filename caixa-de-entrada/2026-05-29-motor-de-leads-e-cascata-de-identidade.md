@@ -158,8 +158,10 @@ do app) são coisas distintas que por acaso têm o mesmo nome.
 ## Mapeamento de questionId → destino
 **Form 1 `wbvQx1` "FORMULARIO PARA NOVOS MEMBROS"** (155 resp): nome `E5jxJ4`,
 email `BdJkbQ`, whatsapp `2BqKxj`, instagram `vr7yrv`, cidade `ke86RR`, empresa `GKNdeZ`,
-segmento `Olp5QR`, cargo `VjR5pg`. (qualitativos ainda não extraídos: motivação `PDM5RV`,
-dificuldade `E5jQq4`, frase `ve8yx0`, valer a pena `K5rlB8`.)
+segmento `Olp5QR`, cargo `VjR5pg` (array checkboxes), nascimento `rBNodN`.
+Qualitativos (✔ já extraídos em `person_insights`): motivação `PDM5RV` → `motivation`,
+dificuldade `E5jQq4` → `pain`, frase `ve8yx0` → `intro_phrase`, vale a pena `K5rlB8` → `wish`.
+Obs: submissões mais antigas não tinham esses campos — cobertura parcial (~110–141 pessoas).
 
 **Form 2 `mDyqRZ` "CONEXÃO ENTRE OS MEMBROS"** (72 resp): nome `ZELpdz`, email `VQXE6N`,
 whatsapp `qD72bY`, instagram/linkedin `7Lg8dP` (skip se "linkedin"), CPF `P1LjqP`,
@@ -172,6 +174,9 @@ goal `O4K1NM`, lifestyle `WEkvAj`.
 como `p_rows` pra `ingest_tally_*`. Lote ~10/vez via `$JSON$...$JSON$::jsonb` no execute_sql.
 Re-rodar não duplica. (Resposta grande → processar em subagente pra não estourar contexto.)
 
-## Estado atual (2026-05-29)
-202 pessoas · 227 submissões (155+72) · 32 CPFs · 320 insights · 67 com faturamento ·
-15 cross-fonte · 1 needs_review. Fontes Tally restantes: ~40 (ver lista no Tally MCP).
+## Estado atual (2026-05-30)
+202 pessoas · 228 submissões (155+72+1) · 32 CPFs · **819 insights** · 67 com faturamento ·
+172 com nascimento · 15 cross-fonte · 1 needs_review.
+Insights: 499 do form 1 (motivation 141, pain 138, intro_phrase 110, wish 110) +
+320 do form 2 (about, challenge, trajectory, goal, lifestyle).
+Fontes Tally restantes: ~40 (ver lista no Tally MCP).
