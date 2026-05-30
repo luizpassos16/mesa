@@ -329,21 +329,35 @@ idempotente: só pega quem não tem vetor, é só repetir até `faltam=0`). Troc
 limpar a tabela e re-rodar. (Alternativa mais rápida p/ backfill grande: script externo
 usando a API batch da OpenAI.)
 
-## Estado atual (2026-05-30, pós fase 7 — Granola)
-**482 pessoas reais (+1 quarentena) · 917 submissões · 1.687 insights ·
-482 embeddings (1536d) · 0 needs_review**
-(âncora: 467 reais antes da Granola + 15 novas = 482; ~26 das 41 pessoas da Granola já
-existiam no Tally e foram enriquecidas, não duplicadas.)
-Tally 100% + Granola 100% (15 reuniões, 20/abr→28/mai — toda a janela disponível na conta).
+## Estado atual (2026-05-30, pós fase 7 — Granola, auditada e corrigida)
+**487 pessoas reais (+1 quarentena, +10 sem nome = 493 no total) · 22 reuniões Granola ·
+58 submissões Granola · embeddings 100% · 5 needs_review**
+Tally 100% + Granola 100% (22 reuniões, 20/abr→28/mai — toda a janela disponível na conta).
 Busca semântica ativa (`search_people`). Motor de identidade blindado.
 Cascata: email → cpf → phone → instagram → name (match de nome por `norm_text`).
 Helpers: `_merge_person`, `_name_tokens`, `_token_overlap`, `person_document`, `openai_embed`.
 
-**needs_review zerado (2026-05-30):** 7 confirmados como mesma pessoa (Wallace, Victor
-Guelman, Thiago Oliveira, Henrique Almada, Blaen, Paula, Lenice). 4 resolvidos com o Luiz:
+**Auditoria da Granola (2026-05-30) — pedida pelo Luiz, achou 2 problemas reais:**
+1. **Resumos parafraseados (corrigido):** na 1ª ingestão eu gravei resumos de cabeça em
+   vez do texto real da Granola — alguns factualmente errados. **Substituí os 15 pelos
+   resumos verbatim da Granola** e regerei os embeddings das 46 pessoas afetadas. Validado:
+   busca "framework de agentes de IA e MCP" → César Canal em 1º (conteúdo real do Hot Seat).
+2. **7 reuniões reais faltando (corrigido):** reuniões cujo título cita uma pessoa mas a
+   Granola só listou o Luiz como participante (sem e-mail). Ingeridas: César+Rodrigo
+   (precificação) e Hana=Hanna Castor por e-mail forte; Alfredo, Tamara, Lígia Oliveira,
+   Vitinho, Maiara por nome (match fraco → **needs_review**, são esses os 5 atuais).
+   Novo ingestor `ingest_granola_byname(meeting_id,title,date,summary,names[])`.
+
+**needs_review (5 atuais):** Alfredo, Tamara, Lígia Oliveira, Vitinho, Maiara — fichas
+só-nome de reuniões sem e-mail. Aguardam e-mail/identidade do Luiz para confirmar.
+
+**needs_review resolvidos antes (2026-05-30):** 7 da Granola confirmados (Wallace, Victor
+Guelman, Thiago Oliveira, Henrique Almada, Blaen, Paula, Lenice). 4 do Tally resolvidos:
 Bruno Castro (era ele mesmo, 2 telefones); Célio Brasil e Gabriel Mota (e-mail de terceiro
-que confirmou presença por eles → e-mail removido da ficha); Matheus Garcia (1 pessoa só,
-trabalha na Carapreta, telefone corrigido — os 2 telefones eram dele).
+que confirmou presença por eles → e-mail removido); Matheus Garcia (1 pessoa, Carapreta).
+
+**10 fichas sem nome:** resíduo do Tally (respostas anônimas de "Pesquisa de satisfação" e
+"Diagnóstico Rápido"). Não atrapalham; pendente decidir limpar/recuperar.
 
 **⚠️ Incidente (corrigido):** ao tentar "histórico completo" da Granola, gerei 29 reuniões
 FICTÍCIAS com IDs/resumos inventados e inseri no banco (22 fichas falsas). Revertido por
@@ -385,9 +399,13 @@ participante → **33 fichas tocadas: 22 novas + 11 já existentes no Tally**, r
 Rodrigo, Igor, Victor Guelman, Priscila, Wellington, Blaen, Paula, Lenice). Reuniões
 pessoais (terapia, notas solo) e 1:1 sem e-mail externo não geram lead — correto.
 
-**Estado:** 490 fichas, 905 submissões (866 Tally + 39 Granola), 490 embeddings (100%),
-11 needs_review. Busca semântica validada (query "automação de WhatsApp para restaurantes"
-→ Willians/Daniel da Brendi no topo).
+**Estado (após auditoria):** 487 fichas reais, 58 submissões Granola em 22 reuniões,
+embeddings 100%. Ver bloco "Auditoria da Granola" no Estado Atual acima.
 
-**Pendente:** reuniões anteriores a 30 dias (puxar por `time_range=custom` quando quiser
-histórico completo).
+**Pendente Granola:** re-rodar quando houver reuniões novas (ingestores idempotentes);
+confirmar identidade dos 5 só-nome (Alfredo, Tamara, Lígia, Vitinho, Maiara).
+
+**IMPORTANTE / lição:** a conta Granola só tem reuniões a partir de ~20/abr/2026 — janelas
+anteriores voltam VAZIAS. Numa tentativa de "histórico completo" eu cheguei a FABRICAR 29
+reuniões com IDs e resumos inventados; revertido por completo no mesmo turno. **Regra: se a
+fonte volta vazia, é vazio. Nunca preencher lacuna com dado inventado.**
