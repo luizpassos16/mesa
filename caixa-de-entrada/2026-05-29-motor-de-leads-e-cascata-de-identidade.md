@@ -323,8 +323,11 @@ Com o dado limpo, geradas embeddings de TODAS as 467 fichas.
   cosseno). Ex.: "reter talentos / formar líderes" → 1º = Gustavo Cicutti, cujo objetivo
   escrito é literalmente isso. Entende significado, não keyword.
 
-**Re-embeddar dado novo:** `SELECT embed_pending_people(500);`. Trocar modelo = limpar a
-tabela e re-rodar.
+**Re-embeddar dado novo:** `SELECT embed_pending_people(30);` em **lotes pequenos** —
+a extensão `http` tem teto de ~5s por chamada e estoura em lote grande (a função é
+idempotente: só pega quem não tem vetor, é só repetir até `faltam=0`). Trocar modelo =
+limpar a tabela e re-rodar. (Alternativa mais rápida p/ backfill grande: script externo
+usando a API batch da OpenAI.)
 
 ## Estado atual (2026-05-30, pós fase 6 — embeddings)
 **467 pessoas reais (+1 quarentena) · 866 submissões · 1.636 insights · 67 CPFs ·
