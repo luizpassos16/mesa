@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MESA · Motor de Leads — Painel</title>
+<style>
+  :root{
+    --bg:#0c0e14; --panel:#151823; --panel2:#1c2030; --line:#2a3042;
+    --txt:#e8ebf2; --mut:#8b93a7; --accent:#6c8cff; --accent2:#43d9a3;
+    --warn:#f2b34b; --tally:#6c8cff; --granola:#43d9a3;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.5;padding:32px 20px 80px}
+  .wrap{max-width:1080px;margin:0 auto}
+  h1{font-size:26px;font-weight:700;letter-spacing:-.5px}
+  .sub{color:var(--mut);font-size:14px;margin-top:4px}
+  .date{color:var(--mut);font-size:12px;margin-top:2px}
+  h2{font-size:13px;text-transform:uppercase;letter-spacing:1.2px;color:var(--mut);margin:38px 0 14px;font-weight:600}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .kpi{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
+  .kpi .n{font-size:32px;font-weight:700;letter-spacing:-1px}
+  .kpi .l{color:var(--mut);font-size:12.5px;margin-top:2px}
+  .kpi .x{color:var(--accent2);font-size:11.5px;margin-top:6px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .grid2b{display:grid;grid-template-columns:1.3fr 1fr;gap:18px}
+  .bar-row{display:flex;align-items:center;gap:12px;margin:9px 0}
+  .bar-lab{width:120px;font-size:13px;color:var(--txt);flex-shrink:0;text-align:right}
+  .bar-track{flex:1;background:var(--panel2);border-radius:7px;height:22px;overflow:hidden}
+  .bar-fill{height:100%;border-radius:7px;display:flex;align-items:center;padding-left:9px;font-size:11.5px;color:#0c0e14;font-weight:700;min-width:30px}
+  .cascade{display:flex;flex-direction:column;gap:8px}
+  .casc{display:flex;align-items:center;gap:12px;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:11px 14px}
+  .casc .rank{width:22px;height:22px;border-radius:50%;color:#0c0e14;font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .casc .nm{flex:1;font-size:13.5px}
+  .casc .ct{font-weight:700;font-size:14px}
+  .tag{font-size:10.5px;color:var(--mut);background:var(--bg);padding:2px 7px;border-radius:5px;margin-left:6px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{text-align:left;color:var(--mut);font-size:11px;text-transform:uppercase;letter-spacing:.5px;padding:8px 10px;border-bottom:1px solid var(--line)}
+  td{padding:9px 10px;border-bottom:1px solid #20253460}
+  tr:last-child td{border-bottom:none}
+  td.num{text-align:center;font-variant-numeric:tabular-nums;font-weight:600}
+  .pill{display:inline-block;font-size:11px;padding:2px 8px;border-radius:20px;font-weight:600}
+  .pill.t{background:#6c8cff22;color:#9db0ff}
+  .pill.g{background:#43d9a322;color:#6fe6bd}
+  .flow{display:flex;align-items:stretch;flex-wrap:wrap}
+  .flow-step{flex:1;min-width:150px;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:16px}
+  .flow-step h3{font-size:14px;margin-bottom:4px}
+  .flow-step p{font-size:12px;color:var(--mut)}
+  .flow-arrow{display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:22px;padding:0 6px}
+  .note{color:var(--mut);font-size:12.5px;margin-top:10px;line-height:1.6}
+  .src-row{display:flex;align-items:center;gap:10px;margin:7px 0;font-size:13px}
+  .src-row .nm{flex:1;color:var(--txt)}
+  .src-row .nm small{color:var(--mut)}
+  .src-row .v{font-weight:700;font-variant-numeric:tabular-nums}
+  .foot{color:var(--mut);font-size:12px;margin-top:40px;text-align:center;border-top:1px solid var(--line);padding-top:18px}
+  .badge{display:inline-block;background:var(--accent2);color:#0c0e14;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>🍽️ MESA · Motor de Leads</h1>
+    <div class="sub">Banco de dados unificado de pessoas — o ativo proprietário no cruzamento dos pontos de contato</div>
+    <div class="date">Estado em 30/05/2026 · números reais do Supabase (projeto MESA)</div>
+  </header>
+
+  <!-- KPIs -->
+  <div class="kpis">
+    <div class="kpi"><div class="n">483</div><div class="l">Fichas de pessoas</div><div class="x">+10 anônimas sem nome</div></div>
+    <div class="kpi"><div class="n">925</div><div class="l">Pontos de contato</div><div class="x">866 Tally · 59 Granola</div></div>
+    <div class="kpi"><div class="n">1.695</div><div class="l">Insights qualitativos</div><div class="x">o “ouro pra IA”</div></div>
+    <div class="kpi"><div class="n">493</div><div class="l">Embeddings (busca IA)</div><div class="x">100% das fichas</div></div>
+  </div>
+  <div class="kpis" style="margin-top:14px">
+    <div class="kpi"><div class="n">1.941</div><div class="l">Chaves de identidade</div><div class="x">email · cpf · tel · @ · nome</div></div>
+    <div class="kpi"><div class="n">18</div><div class="l">Pessoas em 2+ fontes</div><div class="x">cruzamento provado</div></div>
+    <div class="kpi"><div class="n">67</div><div class="l">CPFs (chave forte)</div><div class="x">identidade governo</div></div>
+    <div class="kpi"><div class="n" style="color:var(--accent2)">0</div><div class="l">Pendências de revisão</div><div class="x">fila limpa ✓</div></div>
+  </div>
+
+  <!-- Como funciona -->
+  <h2>Como o motor funciona</h2>
+  <div class="card">
+    <div class="flow">
+      <div class="flow-step"><h3>1 · Capturar</h3><p>Cada formulário, evento e reunião é um <b>ponto de contato</b> com proveniência e à prova de duplicata.</p></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><h3>2 · Reconciliar</h3><p>A <b>cascata de identidade</b> decide se é alguém novo ou já conhecido — e funde sem duplicar.</p></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><h3>3 · Enriquecer</h3><p>A ficha acumula dados de negócio + <b>insights</b> qualitativos de todas as fontes.</p></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><h3>4 · Consultar</h3><p>Busca <b>semântica</b> por significado (não palavra-chave) sobre toda a base.</p></div>
+    </div>
+  </div>
+
+  <div class="grid2b" style="margin-top:18px">
+    <!-- Fontes -->
+    <div class="card">
+      <h2 style="margin-top:0">Fontes conectadas</h2>
+      <div class="src-row"><span class="pill t">Tally</span><span class="nm">Formulários, eventos, board <small>· 35 formulários</small></span><span class="v">866</span></div>
+      <div class="src-row"><span class="pill g">Granola</span><span class="nm">Reuniões / calls <small>· 22 reuniões</small></span><span class="v">59</span></div>
+      <div style="height:1px;background:var(--line);margin:12px 0"></div>
+      <div class="src-row" style="opacity:.5"><span class="pill" style="background:#2a3042;color:#8b93a7">Notion</span><span class="nm">pendente</span><span class="v">—</span></div>
+      <div class="src-row" style="opacity:.5"><span class="pill" style="background:#2a3042;color:#8b93a7">Zoom</span><span class="nm">pendente</span><span class="v">—</span></div>
+      <div class="src-row" style="opacity:.5"><span class="pill" style="background:#2a3042;color:#8b93a7">Gmail</span><span class="nm">pendente</span><span class="v">—</span></div>
+      <div class="src-row" style="opacity:.5"><span class="pill" style="background:#2a3042;color:#8b93a7">Drive · Agenda</span><span class="nm">pendente</span><span class="v">—</span></div>
+      <p class="note">Cada nova fonte passa pelo mesmo motor — enriquece quem já existe, cria quem é novo.</p>
+    </div>
+
+    <!-- Cascata -->
+    <div class="card">
+      <h2 style="margin-top:0">Cascata de identidade <span class="tag" style="font-size:10px">por força</span></h2>
+      <div class="cascade">
+        <div class="casc"><div class="rank" style="background:var(--accent2)">1</div><div class="nm">E-mail</div><div class="ct">376</div></div>
+        <div class="casc"><div class="rank" style="background:var(--accent2)">2</div><div class="nm">CPF <span class="tag">governo</span></div><div class="ct">67</div></div>
+        <div class="casc"><div class="rank" style="background:var(--accent)">3</div><div class="nm">Telefone</div><div class="ct">462</div></div>
+        <div class="casc"><div class="rank" style="background:var(--accent)">4</div><div class="nm">Instagram</div><div class="ct">271</div></div>
+        <div class="casc"><div class="rank" style="background:var(--warn)">5</div><div class="nm">Nome <span class="tag">fraco → revisão</span></div><div class="ct">765</div></div>
+      </div>
+      <p class="note">Tenta a chave mais forte primeiro. Match só por nome é fraco e cai pra revisão manual.</p>
+    </div>
+  </div>
+
+  <!-- Profundidade -->
+  <h2>Profundidade das fichas — quantos pontos de contato cada pessoa tem</h2>
+  <div class="card">
+    <div class="bar-row"><div class="bar-lab">1 contato</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--tally)">350 pessoas</div></div></div>
+    <div class="bar-row"><div class="bar-lab">2 contatos</div><div class="bar-track"><div class="bar-fill" style="width:23%;background:#6c8cff">80</div></div></div>
+    <div class="bar-row"><div class="bar-lab">3 contatos</div><div class="bar-track"><div class="bar-fill" style="width:4.6%;background:#5fb0e8">16</div></div></div>
+    <div class="bar-row"><div class="bar-lab">4 contatos</div><div class="bar-track"><div class="bar-fill" style="width:3%;background:#4fcbc4">10</div></div></div>
+    <div class="bar-row"><div class="bar-lab">5 contatos</div><div class="bar-track"><div class="bar-fill" style="width:2%;background:var(--granola)">4</div></div></div>
+    <div class="bar-row"><div class="bar-lab">6+ contatos</div><div class="bar-track"><div class="bar-fill" style="width:10%;background:#43d9a3">35 pessoas</div></div></div>
+    <p class="note">A maioria entrou por um único ponto (350) — são leads a aprofundar. As 35 com 6+ contatos são os relacionamentos mais profundos. O recordista tem <b>21 pontos de contato</b>.</p>
+  </div>
+
+  <div class="grid2" style="margin-top:18px">
+    <!-- Insights -->
+    <div class="card">
+      <h2 style="margin-top:0">Insights qualitativos por tipo</h2>
+      <div class="bar-row"><div class="bar-lab" style="width:96px">Dor (pain)</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--accent)">324</div></div></div>
+      <div class="bar-row"><div class="bar-lab" style="width:96px">Desejo</div><div class="bar-track"><div class="bar-fill" style="width:81%;background:#6c8cff">262</div></div></div>
+      <div class="bar-row"><div class="bar-lab" style="width:96px">Motivação</div><div class="bar-track"><div class="bar-fill" style="width:72.5%;background:#5fb0e8">235</div></div></div>
+      <div class="bar-row"><div class="bar-lab" style="width:96px">Apresentação</div><div class="bar-track"><div class="bar-fill" style="width:71%;background:#5fb0e8">231</div></div></div>
+      <div class="bar-row"><div class="bar-lab" style="width:96px">Sobre / bio</div><div class="bar-track"><div class="bar-fill" style="width:52%;background:#4fcbc4">169</div></div></div>
+      <div class="bar-row"><div class="bar-lab" style="width:96px">Desafio</div><div class="bar-track"><div class="bar-fill" style="width:46%;background:#4fcbc4">150</div></div></div>
+      <div class="bar-row"><div class="bar-lab" style="width:96px">Objetivo</div><div class="bar-track"><div class="bar-fill" style="width:33%;background:var(--granola)">107</div></div></div>
+      <div class="bar-row"><div class="bar-lab" style="width:96px">Trajetória</div><div class="bar-track"><div class="bar-fill" style="width:28%;background:var(--granola)">92</div></div></div>
+      <div class="bar-row"><div class="bar-lab" style="width:96px">Estilo de vida</div><div class="bar-track"><div class="bar-fill" style="width:20%;background:#6fe6bd">66</div></div></div>
+      <div class="bar-row"><div class="bar-lab" style="width:96px">Reuniões</div><div class="bar-track"><div class="bar-fill" style="width:18%;background:#6fe6bd">59</div></div></div>
+      <p class="note">Cada insight é texto livre da própria pessoa — é o que alimenta a busca por significado.</p>
+    </div>
+
+    <!-- Top fichas -->
+    <div class="card">
+      <h2 style="margin-top:0">Fichas mais ricas</h2>
+      <table>
+        <thead><tr><th>Pessoa</th><th>Empresa</th><th class="num">Cont.</th><th class="num">Insights</th></tr></thead>
+        <tbody>
+          <tr><td>Tiago Oliveira Mota</td><td>Boneca de Lili</td><td class="num">21</td><td class="num">23</td></tr>
+          <tr><td>Vitor Kalil Ferreira</td><td>Kalil e Ferreira Adv.</td><td class="num">14</td><td class="num">15</td></tr>
+          <tr><td>Felipe Gaudêncio</td><td>Skillcerto</td><td class="num">13</td><td class="num">16</td></tr>
+          <tr><td>Giovanni Naddeo</td><td>Vassouras Garota</td><td class="num">12</td><td class="num">16</td></tr>
+          <tr><td>Lucas Meireles Duarte</td><td>Grupo Trip Food</td><td class="num">11</td><td class="num">22</td></tr>
+          <tr><td>Hanna Castor</td><td>Hacoo</td><td class="num">11</td><td class="num">21</td></tr>
+          <tr><td>Rodrigo Cézar</td><td>Vértice</td><td class="num">10</td><td class="num">19</td></tr>
+          <tr><td>Igor Della Croce</td><td>Aquila</td><td class="num">10</td><td class="num">17</td></tr>
+          <tr><td>Pedro Grenfell</td><td>Way Group</td><td class="num">10</td><td class="num">16</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Top formulários -->
+  <h2>Maiores pontos de captação</h2>
+  <div class="card">
+    <div class="bar-row"><div class="bar-lab" style="width:230px;text-align:right">Formulário Novos Membros</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--tally)">150</div></div></div>
+    <div class="bar-row"><div class="bar-lab" style="width:230px;text-align:right">Conexão entre os Membros</div><div class="bar-track"><div class="bar-fill" style="width:48%;background:#6c8cff">72</div></div></div>
+    <div class="bar-row"><div class="bar-lab" style="width:230px;text-align:right">Formulário de Interesse</div><div class="bar-track"><div class="bar-fill" style="width:47%;background:#6c8cff">71</div></div></div>
+    <div class="bar-row"><div class="bar-lab" style="width:230px;text-align:right">Presença · Café com o Zema</div><div class="bar-track"><div class="bar-fill" style="width:46%;background:#5fb0e8">69</div></div></div>
+    <div class="bar-row"><div class="bar-lab" style="width:230px;text-align:right">Presença · Almoço P. Camargo</div><div class="bar-track"><div class="bar-fill" style="width:28%;background:#5fb0e8">42</div></div></div>
+    <div class="bar-row"><div class="bar-lab" style="width:230px;text-align:right">Jantar Carapreta</div><div class="bar-track"><div class="bar-fill" style="width:24.6%;background:#4fcbc4">37</div></div></div>
+    <div class="bar-row"><div class="bar-lab" style="width:230px;text-align:right">Banco de Indicações</div><div class="bar-track"><div class="bar-fill" style="width:23%;background:#4fcbc4">35</div></div></div>
+    <p class="note">35 formulários do Tally no total + 22 reuniões da Granola. Os formulários de "presença" trazem volume; os de "membros/conexão" trazem profundidade (faturamento, CPF, qualitativo).</p>
+  </div>
+
+  <!-- Cobertura -->
+  <h2>Cobertura dos dados (base 483 fichas)</h2>
+  <div class="card">
+    <div class="bar-row"><div class="bar-lab" style="width:150px">Com telefone</div><div class="bar-track"><div class="bar-fill" style="width:89.4%;background:var(--accent)">432 · 89%</div></div></div>
+    <div class="bar-row"><div class="bar-lab" style="width:150px">Com e-mail</div><div class="bar-track"><div class="bar-fill" style="width:73.9%;background:#5fb0e8">357 · 74%</div></div></div>
+    <div class="bar-row"><div class="bar-lab" style="width:150px">Com empresa</div><div class="bar-track"><div class="bar-fill" style="width:70.4%;background:#4fcbc4">340 · 70%</div></div></div>
+    <div class="bar-row"><div class="bar-lab" style="width:150px">Com faturamento</div><div class="bar-track"><div class="bar-fill" style="width:17.8%;background:var(--granola)">86 · 18%</div></div></div>
+    <div class="bar-row"><div class="bar-lab" style="width:150px">Com CPF</div><div class="bar-track"><div class="bar-fill" style="width:13.9%;background:#6fe6bd">67 · 14%</div></div></div>
+    <p class="note">Identificação está sólida (quase todos têm telefone/e-mail). Os dados de negócio — faturamento, CPF — vêm dos formulários mais profundos e crescem conforme mais fontes entram.</p>
+  </div>
+
+  <div class="foot">
+    <span class="badge">Tally + Granola ✓</span>&nbsp;&nbsp;
+    Próximos: Notion · Zoom · Gmail · interface de consulta · RLS das tabelas legadas<br>
+    Painel gerado a partir de consultas reais ao banco — nenhum número estimado.
+  </div>
+</div>
+</body>
+</html>
