@@ -291,14 +291,28 @@ Para os demais forms, os question IDs estão na definição das funções no Sup
 como `p_rows` pra `ingest_tally_*` via `$JSON$...$JSON$::jsonb` no execute_sql.
 Re-rodar não duplica. Resposta grande → usar subagente pra não estourar contexto.
 
-## Estado atual (2026-05-30, pós fase 4 — auditoria + limpeza COMPLETA)
-**420 pessoas reais (+1 quarentena) · 773 submissões · 1.636 insights · 59 CPFs · 0 needs_review**
-41 fontes Tally ingeridas · 2 bloqueadas (3xq8e9, wgE0G1) · 27 ingestores ativos.
+## Fase 5 — Tally 100% (✔ executado 2026-05-30)
+Os 2 forms bloqueados pelo bug `label:null` do MCP foram resolvidos via **export CSV**
+(o Luiz baixou e subiu os arquivos). Ingeridos por SQL direto pelo mesmo `resolve_person`:
+- `3xq8e9` Café com o Zema — 69 confirmações (nome+telefone+email)
+- `wgE0G1` BOPE — 23 confirmações (nome+telefone+documento→CPF quando válido)
+A guarda anti-telefone-compartilhado agiu (ex.: "Gabriel Mota" veio com o telefone do
+Leonardo Ramalho → não fundiu, virou ficha própria). 0 duplicatas, 0 fusões erradas.
+4 fichas em needs_review (colisões de nome legítimas p/ revisão: Bruno Castro,
+Célio Brasil, Gabriel Mota, Matheus Garcia).
+
+**Cobertura Tally agora 100%: 35 formulários com dados ingeridos** (33 via MCP + 2 via CSV);
+6 vazios/rascunho; 1 lixo de teste em quarentena (`yPjlA6`).
+
+## Estado atual (2026-05-30, pós fase 5 — Tally completo)
+**467 pessoas reais (+1 quarentena) · 866 submissões · 1.636 insights · 67 CPFs · 4 needs_review**
+35 formulários Tally ingeridos (cobertura 100% do que tem dado).
 Cascata: email → cpf → phone → instagram → name (match de nome por `norm_text`).
-Motor com guarda anti-telefone-compartilhado. **0 fusões erradas · 0 duplicatas · 0 needs_review.**
+Motor com guarda anti-telefone-compartilhado. **0 fusões erradas · 0 duplicatas.**
 Helpers de manutenção: `_merge_person`, `_name_tokens`, `_token_overlap`.
 
 **Próximos passos reais:**
+- Revisar as 4 needs_review (colisões de nome — Bruno Castro, Gabriel Mota, etc.).
 - Embeddings: pgvector instalado, gerar embeddings das fichas pra busca semântica.
 - RLS legado: 57 tabelas do app MESA sem política (buraco de segurança).
 - Blocked forms: aguardar fix do MCP Tally (label null) para 3xq8e9 + wgE0G1.
