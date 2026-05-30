@@ -330,8 +330,8 @@ limpar a tabela e re-rodar. (Alternativa mais rápida p/ backfill grande: script
 usando a API batch da OpenAI.)
 
 ## Estado atual (2026-05-30, pós fase 7 — Granola, auditada e corrigida)
-**487 pessoas reais (+1 quarentena, +10 sem nome = 493 no total) · 22 reuniões Granola ·
-58 submissões Granola · embeddings 100% · 5 needs_review**
+**483 pessoas reais (+1 quarentena, +10 sem nome = 494 no total) · 22 reuniões Granola ·
+59 submissões Granola · embeddings 100% · 0 needs_review**
 Tally 100% + Granola 100% (22 reuniões, 20/abr→28/mai — toda a janela disponível na conta).
 Busca semântica ativa (`search_people`). Motor de identidade blindado.
 Cascata: email → cpf → phone → instagram → name (match de nome por `norm_text`).
@@ -351,11 +351,13 @@ Helpers: `_merge_person`, `_name_tokens`, `_token_overlap`, `person_document`, `
 **Identidades dos só-nome resolvidas pelo Luiz (2026-05-30):**
 - **Alfredo** → a reunião foi com **Giovanni Naddeo** (Alfredo só citado) → ficha fundida no Giovanni.
 - **Vitinho** → é **Victor Gontijo** (victorfgontijo@gmail.com) → ficha fundida no Victor.
-- **Tamara** → **Tamara Andrade** (equipe Mesa).
-- **Maiara** → **Fortini** (Fortini Social, projeto social).
+- **Tamara** → **Tamara Andrade** (mkt leve, tamara.andrade@mktleve.com) — já existia do Tally → fundida.
+- **Maiara** → **Fortini** (Fortini Social, projeto social) → confirmada.
 - **Lígia Oliveira** → foi uma **call de vendas** (ela vendendo método PMM ao Luiz; fornecedora).
 - **Hanna** (metodologia 360) = **Hanna Castor / Hacoo**. **César** = Multiverso. **Rodrigo** = Vértice.
-needs_review zerado após essas correções.
+
+**Estado final verificado:** 483 pessoas reais (+1 quarentena +10 sem nome = 494),
+46 tocadas pela Granola em 22 reuniões, embeddings 100%, **needs_review = 0**.
 
 **needs_review resolvidos antes (2026-05-30):** 7 da Granola confirmados (Wallace, Victor
 Guelman, Thiago Oliveira, Henrique Almada, Blaen, Paula, Lenice). 4 do Tally resolvidos:
