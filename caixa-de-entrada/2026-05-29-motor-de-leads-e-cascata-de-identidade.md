@@ -337,8 +337,42 @@ Cascata: email → cpf → phone → instagram → name (match de nome por `norm
 Helpers: `_merge_person`, `_name_tokens`, `_token_overlap`, `person_document`, `openai_embed`.
 
 **Próximos passos reais:**
-- Fontes não-Tally: Notion, Granola, Zoom, Drive, Gmail, agenda — enriquecer fichas.
+- Fontes não-Tally: Notion, Zoom, Drive, Gmail, agenda — enriquecer fichas.
 - Interface de consulta (usar `search_people` numa tela/chat pro consultor).
 - Embeddings por insight (granular) se quiser busca por dor específica.
 - RLS legado: 57 tabelas do app MESA sem política (buraco de segurança).
-- Revisar as 4 needs_review (colisões de nome — Bruno Castro, Gabriel Mota, etc.).
+- Revisar as 11 needs_review (4 antigas do Tally + 7 da Granola — colisões de nome).
+
+## Fase Granola — reuniões como ponto de contato (✔ executado, 2026-05-30)
+
+**Diferença estrutural:** uma reunião não é "uma pessoa preencheu um form", é uma
+**interação com várias pessoas**. Cada participante (menos o dono) vira/atualiza uma ficha.
+
+**Ingestor:** `ingest_granola_meeting(meeting_id, title, date, summary, attendees jsonb)`
+- `attendees` = `[{"name","email"}, ...]`.
+- **Pula o dono** (`lgcmp44@gmail.com`) — nunca vira lead.
+- **Pula caixas genéricas** de empresa (producao@, contato@, financeiro@, digital1@…).
+- Limpa o sufixo `" from <empresa>"` que a Granola anexa ao nome.
+- Tira dígitos do fim de nomes com 2+ palavras (`Paula Marques1234`→`Paula Marques`),
+  preserva handles de palavra única (`Azrolim96`).
+- **Deriva empresa do domínio** corporativo (`brendi.com.br`→`Brendi`), pulando
+  provedores gratuitos (gmail/hotmail/yahoo…).
+- Resolve via `resolve_person` (mesma cascata email→cpf→phone→instagram→nome).
+- Grava em `source_submissions` (`source='granola'`, `external_id=meeting_id:email`,
+  idempotente) e 1 `person_insights` por (pessoa,reunião) (`kind='meeting'`, título+data+
+  resumo) → entra na busca semântica.
+
+**Schema:** check `person_insights_kind_check` ganhou o kind `'meeting'`.
+
+**Resultado:** 13 reuniões (últimos 30 dias com participante externo) → 39 linhas de
+participante → **33 fichas tocadas: 22 novas + 11 já existentes no Tally**, reconciliadas
+(Daniel Frageri/Brendi, Hanna Castor/Hacoo, Wallace França, Thiago Oliveira/One, César,
+Rodrigo, Igor, Victor Guelman, Priscila, Wellington, Blaen, Paula, Lenice). Reuniões
+pessoais (terapia, notas solo) e 1:1 sem e-mail externo não geram lead — correto.
+
+**Estado:** 490 fichas, 905 submissões (866 Tally + 39 Granola), 490 embeddings (100%),
+11 needs_review. Busca semântica validada (query "automação de WhatsApp para restaurantes"
+→ Willians/Daniel da Brendi no topo).
+
+**Pendente:** reuniões anteriores a 30 dias (puxar por `time_range=custom` quando quiser
+histórico completo).
