@@ -304,16 +304,38 @@ Célio Brasil, Gabriel Mota, Matheus Garcia).
 **Cobertura Tally agora 100%: 35 formulários com dados ingeridos** (33 via MCP + 2 via CSV);
 6 vazios/rascunho; 1 lixo de teste em quarentena (`yPjlA6`).
 
-## Estado atual (2026-05-30, pós fase 5 — Tally completo)
-**467 pessoas reais (+1 quarentena) · 866 submissões · 1.636 insights · 67 CPFs · 4 needs_review**
-35 formulários Tally ingeridos (cobertura 100% do que tem dado).
+## Fase 6 — Embeddings / busca semântica (✔ executado 2026-05-30)
+Com o dado limpo, geradas embeddings de TODAS as 467 fichas.
+- **Modelo:** OpenAI `text-embedding-3-small` (1536d) — escolhido pela qualidade em PT.
+  Chave fornecida pelo Luiz, guardada no **Vault** do Supabase (criptografada; rotacionar
+  depois por segurança, já que passou pelo chat).
+- **Pipeline 100% no banco:** extensão `http` chama a OpenAI direto do Postgres; sem
+  serviço externo.
+
+**Criado (RLS ON):**
+- `person_embeddings(person_id, content, embedding vector(1536), model)` + índice **HNSW**
+  (cosine). 467 vetores.
+- `person_document(uuid)` — compõe o "documento" da pessoa (identificação + negócio +
+  todos os insights) que vira o embedding.
+- `openai_embed(text)` — chama OpenAI via `http`+Vault, devolve `vector`.
+- `embed_pending_people(int)` — driver idempotente (só embedda quem ainda não tem vetor).
+- `search_people(texto, k)` — **busca semântica** por linguagem natural (similaridade de
+  cosseno). Ex.: "reter talentos / formar líderes" → 1º = Gustavo Cicutti, cujo objetivo
+  escrito é literalmente isso. Entende significado, não keyword.
+
+**Re-embeddar dado novo:** `SELECT embed_pending_people(500);`. Trocar modelo = limpar a
+tabela e re-rodar.
+
+## Estado atual (2026-05-30, pós fase 6 — embeddings)
+**467 pessoas reais (+1 quarentena) · 866 submissões · 1.636 insights · 67 CPFs ·
+467 embeddings (1536d) · 4 needs_review**
+Tally 100%. Busca semântica ativa (`search_people`). Motor de identidade blindado.
 Cascata: email → cpf → phone → instagram → name (match de nome por `norm_text`).
-Motor com guarda anti-telefone-compartilhado. **0 fusões erradas · 0 duplicatas.**
-Helpers de manutenção: `_merge_person`, `_name_tokens`, `_token_overlap`.
+Helpers: `_merge_person`, `_name_tokens`, `_token_overlap`, `person_document`, `openai_embed`.
 
 **Próximos passos reais:**
-- Revisar as 4 needs_review (colisões de nome — Bruno Castro, Gabriel Mota, etc.).
-- Embeddings: pgvector instalado, gerar embeddings das fichas pra busca semântica.
+- Fontes não-Tally: Notion, Granola, Zoom, Drive, Gmail, agenda — enriquecer fichas.
+- Interface de consulta (usar `search_people` numa tela/chat pro consultor).
+- Embeddings por insight (granular) se quiser busca por dor específica.
 - RLS legado: 57 tabelas do app MESA sem política (buraco de segurança).
-- Blocked forms: aguardar fix do MCP Tally (label null) para 3xq8e9 + wgE0G1.
-- Fontes não-Tally: Notion, Granola, Zoom, Drive, Gmail, agenda — próxima frente.
+- Revisar as 4 needs_review (colisões de nome — Bruno Castro, Gabriel Mota, etc.).
