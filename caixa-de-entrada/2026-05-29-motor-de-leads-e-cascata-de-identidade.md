@@ -99,18 +99,42 @@ A ficha agora tem identificação + dados de negócio + 5 insights + pontos de c
 3. Faturamento vinha como array cru `["R$..."]` — agora limpo.
    Limpeza feita direto do `raw_payload` já gravado (sem rebuscar no Tally).
 
-## Aprendizados / próximos passos (atualizados)
+## Aprendizados / próximos passos (pós fase 2)
 - **Telefone compartilhado** ainda funde casal/sócios silenciosamente — CPF resolve a
   maioria dos casos novos, mas falta a regra "nomes muito diferentes → revisar".
-- **Qualitativo do form 1** (`wbvQx1`) ainda não foi extraído — está no `raw_payload`,
-  dá pra rodar o mesmo padrão de limpeza.
-- **Escala:** o padrão (mapeamento de questionId → ingestor idempotente) já serve pras
-  outras ~40 fontes do Tally. Próximo passo natural: confirmações de evento (muito
-  volume) pra cruzar presença com perfil.
-- **RLS legado:** 57 tabelas antigas seguem abertas (ERROs no advisor) — tarefa separada,
-  recomendo priorizar antes de uso real.
-- **member_embeddings** (pgvector instalado): com o qualitativo populado, dá pra gerar
-  embeddings da ficha pra busca semântica.
+- **Qualitativo do form 1** (`wbvQx1`) ✔ extraído em sessão posterior.
+- **Escala:** padrão de ingestor idempotente serviu pras outras 41 fontes — ver Fase 3.
+- **RLS legado:** 57 tabelas antigas seguem abertas (ERROs no advisor) — tarefa separada.
+- **member_embeddings** (pgvector instalado): próximo passo natural com qualitativo populado.
+
+## Fase 3 — Ingestão de todas as fontes Tally (✔ executado 2026-05-30)
+43 formulários inspecionados. 41 ingeridos. 2 bloqueados por bug `label: null` no MCP Tally:
+- ❌ `3xq8e9` "Café com Zema" (69 sub) — bloqueado.
+- ❌ `wgE0G1` "Confirmação BOPE" (23 sub) — bloqueado.
+
+**O que foi construído:**
+- Re-ingestão do form 1 com campos qualitativos (submissões antigas não tinham; re-fetch
+  do Tally atualiza o `raw_payload` via ON CONFLICT DO UPDATE).
+- `ingest_tally_confirmacao(...)` — genérico parameterizado para confirmações de evento.
+- 21 ingestores específicos (ver tabela completa no apêndice técnico).
+
+**Tipos de qualitativo capturado:**
+- motivation: form1 (wbvQx1), interesse (mVglxl), resgate (3NKlrN)
+- pain: form1, interest, board2602, ia_imersao, jantar_one, mesa_ia, onboarding,
+  advisory, board_form (VL8N8N), mentoria (mRp12j)
+- wish: form1, indicacoes, jantar_outside, ia_imersao, jantar_one, mesa_ia,
+  advisory, mesa_aberta_vaga (5Be9AM), mentoria, imersao_ia (jaGkva)
+- about: conexao, indicacoes, onboarding, bedeal, satisfacao_geral,
+  satisfacao_mesa_ia_evento (rjkBV5), satisfacao_ia_int (2EL44j), mentoria
+- challenge: 2026, board2602, onboarding, board_form, mentoria
+- trajectory: conexao, board_meeting, board2602, board_form, mentoria
+- goal: conexao, 2026, onboarding, mentoria
+- intro_phrase: form1, indicacoes, satisfacao_geral
+- lifestyle: conexao
+- about: satisfacao_mesa_ia_evento, satisfacao_ia_int
+
+**Resultado: 427 pessoas · 773 submissões · 1.643 insights**
++31 pessoas novas das 68 submissões desta fase (maioria reconciliou com existentes via cascata).
 
 ## Observação
 O repositório `mesa` (este, de organização de pensamento) e o produto `MESA` (o Supabase
@@ -150,33 +174,87 @@ do app) são coisas distintas que por acaso têm o mesmo nome.
 - `resolve_person(p_full_name, p_email, p_cpf, p_phone, p_instagram, p_city,
   p_birthdate, p_company, p_segment, p_role, p_monthly_revenue)` — cascata
   email→cpf→phone→instagram→name; cria ou **enriquece (só campo vazio)**; match por
-  nome marca `needs_review`. **USAR PARÂMETROS NOMEADOS** (assinatura mudou na fase 2).
-- `ingest_tally_newmembers(p_form_id, p_form_name, p_rows jsonb)` — ingestor form 1.
-- `ingest_tally_conexao(p_form_id, p_form_name, p_rows jsonb)` — ingestor form 2.
-  `p_rows` = array de `{id, submittedAt, responses:[{questionId,answer}]}`.
+  nome marca `needs_review`. **USAR PARÂMETROS NOMEADOS**.
+- `ingest_tally_confirmacao(p_form_id, p_form_name, p_rows, p_qid_nome,
+  p_qid_sobrenome DEFAULT NULL, p_qid_phone DEFAULT NULL, p_qid_email DEFAULT NULL)`
+  — **genérico** para confirmações de evento simples, sem insights.
 
-## Mapeamento de questionId → destino
-**Form 1 `wbvQx1` "FORMULARIO PARA NOVOS MEMBROS"** (155 resp): nome `E5jxJ4`,
-email `BdJkbQ`, whatsapp `2BqKxj`, instagram `vr7yrv`, cidade `ke86RR`, empresa `GKNdeZ`,
-segmento `Olp5QR`, cargo `VjR5pg` (array checkboxes), nascimento `rBNodN`.
-Qualitativos (✔ já extraídos em `person_insights`): motivação `PDM5RV` → `motivation`,
-dificuldade `E5jQq4` → `pain`, frase `ve8yx0` → `intro_phrase`, vale a pena `K5rlB8` → `wish`.
-Obs: submissões mais antigas não tinham esses campos — cobertura parcial (~110–141 pessoas).
+### Ingestores específicos (todos: `p_form_id, p_form_name, p_rows jsonb`)
+`p_rows` = array de `{id, submittedAt, responses:[{questionId,answer}]}`.
 
-**Form 2 `mDyqRZ` "CONEXÃO ENTRE OS MEMBROS"** (72 resp): nome `ZELpdz`, email `VQXE6N`,
-whatsapp `qD72bY`, instagram/linkedin `7Lg8dP` (skip se "linkedin"), CPF `P1LjqP`,
-nascimento `O4K1Nk`, empresa `EdezOA`, cargo `raRyZp`, faturamento `2az86g`,
-segmento `xMExWE`. Qualitativos: about `G9avPQ`, desafio `G9avPO`, trajetória `oeY6jN`,
-goal `O4K1NM`, lifestyle `WEkvAj`.
+| Função | Form ID | Insights |
+|--------|---------|---------|
+| `ingest_tally_newmembers` | `wbvQx1` | motivation, pain, intro_phrase, wish |
+| `ingest_tally_conexao` | `mDyqRZ` | about, challenge, trajectory, goal, lifestyle |
+| `ingest_tally_interesse` | `mVglxl` | motivation, pain, intro_phrase, wish |
+| `ingest_tally_2026` | `RGWxlp` | goal, challenge, pain |
+| `ingest_tally_indicacoes` | `VLvZWN` | intro_phrase, about, wish |
+| `ingest_tally_onboarding` | `XxeKbO` | goal, pain, challenge, trajectory, about |
+| `ingest_tally_advisory_waitlist` | `q4Ozvd` | about, pain, motivation |
+| `ingest_tally_board_meeting` | `waMaRX` | trajectory, pain |
+| `ingest_tally_board_2602` | `b57a01` | challenge, trajectory |
+| `ingest_tally_jantar_outside` | `mOv0Ya` | pain, wish |
+| `ingest_tally_ia_imersao` | `nPa8Oe` | pain, wish |
+| `ingest_tally_jantar_one` | `w2QzQ9` | challenge, pain, wish |
+| `ingest_tally_mesa_ia` | `vGqly4` | pain, challenge, wish |
+| `ingest_tally_bedeal` | `dWEORz` | about |
+| `ingest_tally_satisfacao_geral` | `wvbJ5d` | intro_phrase, about |
+| `ingest_tally_board_satisfacao` | `2E4jqL` | about |
+| `ingest_tally_diagnostico_vendas` | `mBqNQA` | pain, wish |
+| `ingest_tally_sexta_fire` | `Pd17JP` | — (só identidade + CPF) |
+| `ingest_tally_talk_mesa` | `LZWZd1` | — (só identidade + CPF) |
+| `ingest_tally_resgate` | `3NKlrN` | motivation |
+| `ingest_tally_board_form` | `VL8N8N` | trajectory, pain, challenge |
+| `ingest_tally_mentoria` | `mRp12j` | about, trajectory, pain, goal, wish |
+| `ingest_tally_mesa_aberta_vaga` | `5Be9AM` | wish |
+| `ingest_tally_satisfacao_mesa_ia_evento` | `rjkBV5` | about |
+| `ingest_tally_satisfacao_ia_int` | `2EL44j` | about |
+| `ingest_tally_imersao_ia` | `jaGkva` | wish |
+| `ingest_tally_diagnostico_patricia` | `oboXLb` | — (sem identidade, raw store) |
+
+**Confirmações via genérico:** `wzPQyM` Happy Hour (nome VzRN6M, sob PzMrqB, phone Exj6OB),
+`7R4BMZ` Board #3 (nome opcional 4j78gb), e outros forms simples de confirmação.
+
+**Bloqueados (label null bug MCP):** `3xq8e9` (69 sub), `wgE0G1` (23 sub).
+
+## Mapeamento de questionId — forms principais
+
+**Form 1 `wbvQx1` (155 resp):** nome `E5jxJ4`, email `BdJkbQ`, phone `2BqKxj`,
+ig `vr7yrv`, cidade `ke86RR`, empresa `GKNdeZ`, seg `Olp5QR`, cargo `VjR5pg` (array),
+nascimento `rBNodN`. Qualitativos: motivation `PDM5RV`, pain `E5jQq4`,
+intro_phrase `ve8yx0`, wish `K5rlB8` (cobertura parcial — submissões antigas não tinham).
+
+**Form 2 `mDyqRZ` (72 resp):** nome `ZELpdz`, email `VQXE6N`, phone `qD72bY`,
+ig `7Lg8dP` (skip se linkedin), CPF `P1LjqP`, nascimento `O4K1Nk`, empresa `EdezOA`,
+cargo `raRyZp`, faturamento `2az86g`, seg `xMExWE`.
+Qualitativos: about `G9avPQ`, challenge `G9avPO`, trajectory `oeY6jN`, goal `O4K1NM`, lifestyle `WEkvAj`.
+
+**Pd17JP "Sexta Fire" (14 resp, CPF):** nome `R0R90l`+`oyojy1`, email `OzLNzK`,
+phone `GzLPzj`, cidade `V0V60a`, CPF `ZNl7AB`, empresa `r6VZ6M`, seg `48Lb8b`,
+cargo `jyLVyR`, faturamento_anual `2eL6ep` (MC).
+
+**LZWZd1 "Talk A Mesa" (8 resp, CPF):** nome `Grxv0O`+`OAD10M`, email `PAdj0x`,
+phone `VZLE86`, cidade `EPkz02`, CPF `Zdj5l5`, empresa `424Xj5`, seg `jBaDx1`,
+cargo `24E8rM`, faturamento_anual `xdXxZk` (MC).
+
+**mRp12j "Mentoria Luiz Passos" (3 resp, muito rico):** nome `o2qMAV`+`GRZdro`,
+email `6ZgbbO`, phone `Y41Wz0`, cidade `d9Ox2N`.
+Insights: about `O765A8`, trajectory `Ex2QPN`, pain `Pz75Ab`, goal `4KMx2O`, wish `jljQBE`.
+
+Para os demais forms, os question IDs estão na definição das funções no Supabase.
 
 ## Como reprocessar uma fonte (idempotente)
 `fetch_submissions(formId, limit=50, page=N)` no MCP Tally → passar `data.submissions`
-como `p_rows` pra `ingest_tally_*`. Lote ~10/vez via `$JSON$...$JSON$::jsonb` no execute_sql.
-Re-rodar não duplica. (Resposta grande → processar em subagente pra não estourar contexto.)
+como `p_rows` pra `ingest_tally_*` via `$JSON$...$JSON$::jsonb` no execute_sql.
+Re-rodar não duplica. Resposta grande → usar subagente pra não estourar contexto.
 
-## Estado atual (2026-05-30)
-202 pessoas · 228 submissões (155+72+1) · 32 CPFs · **819 insights** · 67 com faturamento ·
-172 com nascimento · 15 cross-fonte · 1 needs_review.
-Insights: 499 do form 1 (motivation 141, pain 138, intro_phrase 110, wish 110) +
-320 do form 2 (about, challenge, trajectory, goal, lifestyle).
-Fontes Tally restantes: ~40 (ver lista no Tally MCP).
+## Estado atual (2026-05-30, pós fase 3 completa)
+**427 pessoas · 773 submissões · 1.643 insights**
+41 fontes Tally ingeridas · 2 bloqueadas (3xq8e9, wgE0G1) · 27 ingestores ativos.
+Cascata: email → cpf → phone → instagram → name.
+
+**Próximos passos reais:**
+- Embeddings: pgvector instalado, gerar embeddings das fichas pra busca semântica.
+- RLS legado: 57 tabelas do app MESA sem política (buraco de segurança).
+- Blocked forms: aguardar fix do MCP Tally (label null) para 3xq8e9 + wgE0G1.
+- Fontes não-Tally: Notion, Granola, Zoom, Drive, Gmail, agenda — próxima frente.
